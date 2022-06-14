@@ -19,7 +19,7 @@ class AuthController {
             console.log("Signin");
         };
         this.userSignup = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { firstName, lastName, email, hash_password, phoneNumber, image, role, } = req.body;
+            const { firstName, lastName, email, password, phoneNumber, image, role } = req.body;
             try {
                 const userExist = yield auth_services_1.default.getUser({ email: email });
                 if (userExist) {
@@ -33,7 +33,7 @@ class AuthController {
                     firstName,
                     lastName,
                     email,
-                    hash_password,
+                    password,
                     phoneNumber,
                     image,
                     role,
@@ -41,6 +41,7 @@ class AuthController {
                 if (data) {
                     res.status(200).json({
                         message: "User successfully created",
+                        user: data,
                     });
                 }
                 else {

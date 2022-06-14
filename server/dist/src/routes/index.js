@@ -11,8 +11,8 @@ router.get("/", (req, res) => {
         message: "Backend Up and running for FUTSA project.",
     });
     router.post("/auth/user/login", auth_controller_1.default.userLogin);
-    router.post("/auth/user/signUp", auth_controller_1.default.userSignup);
+    router.post("/auth/user/signup", auth_controller_1.default.userSignup);
     router.post("/auth/owner/login", auth_controller_1.default.ownerLogin);
-    router.post("/auth/owner/signUp", auth_controller_1.default.ownerSignup);
+    router.post("/auth/owner/signup", auth_controller_1.default.ownerSignup);
 });
 exports.default = router;

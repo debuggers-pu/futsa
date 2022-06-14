@@ -41,11 +41,9 @@ const UserSchema = new Schema<IUser>(
     },
     phoneNumber: {
       type: Number,
-      required: true,
     },
     image: {
       type: String,
-      required: false,
     },
     role: {
       type: String,

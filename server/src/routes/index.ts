@@ -7,11 +7,11 @@ router.get("/", (req: Request, res: Response) => {
   res.json({
     message: "Backend Up and running for FUTSA project.",
   });
-
-  router.post("/auth/user/login", AuthController.userLogin);
-  router.post("/auth/user/signUp", AuthController.userSignup);
-  router.post("/auth/owner/login", AuthController.ownerLogin);
-  router.post("/auth/owner/signUp", AuthController.ownerSignup);
 });
+
+router.post("/user/login", AuthController.userLogin);
+router.post("/user/signup", AuthController.userSignup);
+router.post("/owner/login", AuthController.ownerLogin);
+router.post("/owner/signup", AuthController.ownerSignup);
 
 export default router;

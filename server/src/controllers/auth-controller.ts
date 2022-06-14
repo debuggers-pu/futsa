@@ -1,4 +1,4 @@
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import AuthServices from "../services/auth-services";
 
 class AuthController {
@@ -7,19 +7,12 @@ class AuthController {
   };
 
   userSignup = async (req: Request, res: Response) => {
-    const {
-      firstName,
-      lastName,
-      email,
-      hash_password,
-      phoneNumber,
-      image,
-      role,
-    } = req.body;
+    const { firstName, lastName, email, password, phoneNumber, image, role } =
+      req.body;
     try {
-      const userExist = await AuthServices.getUser({ email: email });
+      const userExist = await AuthServices.getUser({ email });
       if (userExist) {
-        console.log("User already exist");
+        console.log("User already exist.");
         res.status(200).json({
           message: "User already exists.",
         });
@@ -29,7 +22,7 @@ class AuthController {
         firstName,
         lastName,
         email,
-        hash_password,
+        password,
         phoneNumber,
         image,
         role,
@@ -38,15 +31,17 @@ class AuthController {
       if (data) {
         res.status(200).json({
           message: "User successfully created",
+          user: data,
         });
       } else {
         res.status(400).json({
           message: "User not added successfully.",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error);
       res.status(400).json({
-        message: "Error message",
+        message: error.message,
       });
     }
   };
