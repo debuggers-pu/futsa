@@ -14,6 +14,7 @@ class AuthController {
             id: user._id,
             role,
           });
+          res.cookie("futsa-token", token);
           res.status(200).json({
             message: "User successfully logged in.",
             token,
