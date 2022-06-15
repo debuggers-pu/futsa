@@ -4,6 +4,7 @@ import connectDB from "./db";
 import cors from "cors-ts";
 import router from "./src/routes";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app: Express = express();
@@ -17,6 +18,7 @@ connectDB();
 // middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors(corsOption));
 app.use(morgan("dev"));
 
