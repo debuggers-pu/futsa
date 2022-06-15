@@ -9,6 +9,7 @@ interface IUser {
   phoneNumber: number;
   image?: string;
   role: string;
+  authenticate: Function;
 }
 
 const UserSchema = new Schema<IUser>(

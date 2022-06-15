@@ -1,13 +1,12 @@
-import Navbar from './components/Navbar';
-import './App.css';
-import Searchbox from './components/Searchbox';
+import "./App.css";
+import Hero from "./components/Hero";
+import FutsalsList from "./components/FutsalsList";
 
 function App() {
   return (
     <div className="App">
-      <Navbar/>
-      <Searchbox/>
-    <h1>lets go</h1>
+      <Hero />
+      <FutsalsList />
     </div>
   );
 }

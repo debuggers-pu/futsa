@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
 
 const Navbar = () => {
   return (
-    <div>Navbar</div>
-  )
-}
+    <div>
+      {/* leftlogo */}
+      <h1>GAME ON.</h1>
 
-export default Navbar
+      {/* right texts */}
+      <ul>
+        <li>Login</li>
+        <li>Register</li>
+      </ul>
+    </div>
+  );
+};
+
+export default Navbar;
