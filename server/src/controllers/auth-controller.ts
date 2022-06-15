@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import User from "../models/user-model";
 import AuthServices from "../services/auth-services";
 
 class AuthController {
@@ -10,15 +11,15 @@ class AuthController {
     const { firstName, lastName, email, password, phoneNumber, image, role } =
       req.body;
     try {
-      const userExist = await AuthServices.getUser({ email });
+      const userExist = await AuthServices.getUser({ email: email });
       if (userExist) {
         console.log("User already exist.");
-        res.status(200).json({
+        res.status(400).json({
           message: "User already exists.",
         });
         return;
       }
-      const data = await AuthServices.addUser({
+      const _user = new User({
         firstName,
         lastName,
         email,
@@ -27,7 +28,7 @@ class AuthController {
         image,
         role,
       });
-
+      const data = await AuthServices.addUser(_user);
       if (data) {
         res.status(200).json({
           message: "User successfully created",
@@ -35,7 +36,7 @@ class AuthController {
         });
       } else {
         res.status(400).json({
-          message: "User not added successfully.",
+          message: "User not added.",
         });
       }
     } catch (error: any) {

@@ -15,10 +15,10 @@ const corsOption = {
 connectDB();
 
 // middlewares
-app.use(cors(corsOption));
-app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors(corsOption));
+app.use(morgan("dev"));
 
 // routes
 app.use("/api/auth", router);

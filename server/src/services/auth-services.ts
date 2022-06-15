@@ -4,15 +4,13 @@ class AuthServices {
   getUser = async (key: any) => {
     const user = await User.findOne(key);
     if (user) {
+      console.log(user);
       return user;
     }
   };
 
-  addUser = async (userbody: any) => {
-    let _user: any = new User({
-      userbody,
-    });
-    const result = await _user.save();
+  addUser = async (user: any) => {
+    const result = await user.save();
     return result;
   };
 }
