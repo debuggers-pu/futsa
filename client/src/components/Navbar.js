@@ -2,9 +2,9 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div>
+    <div className="flex justify-between items-center">
       {/* leftlogo */}
-      <h1>GAME ON.</h1>
+      <h1 className="text-xl font-bold">GAME ON.</h1>
 
       {/* right texts */}
       <ul>
