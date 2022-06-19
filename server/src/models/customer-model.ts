@@ -1,28 +1,27 @@
 import { Schema, model, Model } from "mongoose";
 
-interface Ifutsal {
+interface ICustomer {
   userId: Schema.Types.ObjectId;
-  futsalName: string;
-  ownerName: string;
-  address: string;
+  firstName: string;
+  lastName: string;
   phoneNumber: number;
-  image: string[];
+  image?: string;
 }
 
-const FutsalSchema = new Schema<Ifutsal>(
+const CustomerSchema = new Schema<ICustomer>(
   {
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    futsalName: {
+    firstName: {
       type: String,
       required: true,
       trim: true,
       min: 4,
-      max: 30,
+      max: 20,
     },
-    ownerName: {
+    lastName: {
       type: String,
       required: true,
       trim: true,
@@ -32,15 +31,15 @@ const FutsalSchema = new Schema<Ifutsal>(
     phoneNumber: {
       type: Number,
     },
-    address: {
-      type: String,
-      required: true,
-    },
     image: {
-      type: [],
+      type: String,
     },
   },
   { timestamps: true }
 );
-const Futsal: Model<Ifutsal> = model("Futsal", FutsalSchema);
-export default Futsal;
+
+CustomerSchema.virtual("fullName").get(function () {
+  return `${this.firstName} ${this.lastName}`;
+});
+const Customer: Model<ICustomer> = model("Customer", CustomerSchema);
+export default Customer;
