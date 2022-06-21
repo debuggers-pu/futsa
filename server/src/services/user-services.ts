@@ -1,8 +1,7 @@
 import User from "../models/user-model";
-import jwt from "jsonwebtoken";
 import Customer from "../models/customer-model";
 import Futsal from "../models/futsal-model";
-class AuthServices {
+class UserServices {
   getUser = async (key: any) => {
     const user = await User.findOne(key);
     if (user) {
@@ -25,13 +24,6 @@ class AuthServices {
     return result;
   };
 
-  createJwtToken = async (data: any) => {
-    const secretKey: any = process.env.JWT_SECRET_KEY;
-    return jwt.sign(data, secretKey, {
-      expiresIn: "1M",
-    });
-  };
-
   getCustomer = async (key: any) => {
     const customer = await Customer.findOne(key);
     if (customer) {
@@ -47,4 +39,4 @@ class AuthServices {
   };
 }
 
-export default new AuthServices();
+export default new UserServices();

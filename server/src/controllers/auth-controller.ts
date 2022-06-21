@@ -2,29 +2,34 @@ import { Request, Response } from "express";
 import Customer from "../models/customer-model";
 import Futsal from "../models/futsal-model";
 import User from "../models/user-model";
-import AuthServices from "../services/auth-services";
+import UserServices from "../services/user-services";
+import TokenServices from "../services/token-services";
 
 class AuthController {
   login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     try {
-      const user = await AuthServices.getUser({ email: email });
+      const user = await UserServices.getUser({ email: email });
       if (user) {
         if (user.authenticate(password)) {
           const { role } = user;
-          const token = await AuthServices.createJwtToken({
-            id: user._id,
-            role,
+          const { accessToken, refreshToken } =
+            await TokenServices.createJwtToken({
+              id: user._id,
+              role,
+            });
+          res.cookie("refreshToken", refreshToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true,
           });
-          res.cookie("futsa-token", token);
+          res.cookie("accessToken", accessToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true,
+          });
           res.status(200).json({
             message: "User successfully logged in.",
-            token,
-            user: {
-              email,
-              role,
-            },
-            id: user._id,
+            accessToken,
+            refreshToken,
           });
         } else {
           res.status(500).json({
@@ -47,7 +52,7 @@ class AuthController {
     const { firstName, lastName, email, password, phoneNumber, image, role } =
       req.body;
     try {
-      const userExist = await AuthServices.getUser({ email: email });
+      const userExist = await UserServices.getUser({ email: email });
       if (userExist) {
         res.status(400).json({
           message: "User already exists.",
@@ -59,7 +64,7 @@ class AuthController {
         password,
         role,
       });
-      const user = await AuthServices.addUser(_user);
+      const user = await UserServices.addUser(_user);
       if (user) {
         const _customer = new Customer({
           userId: user._id,
@@ -68,24 +73,25 @@ class AuthController {
           phoneNumber,
           image,
         });
-        const customer = await AuthServices.addCustomer(_customer);
+        const customer = await UserServices.addCustomer(_customer);
         if (customer) {
-          const token = await AuthServices.createJwtToken({
-            _id: user.id,
-            role: user.role,
+          const { accessToken, refreshToken } =
+            await TokenServices.createJwtToken({
+              _id: user.id,
+              role: user.role,
+            });
+          res.cookie("refreshToken", refreshToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true,
           });
-          res.cookie("futsa-token", token);
+          res.cookie("accessToken", accessToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true,
+          });
           res.status(200).json({
             message: "User successfully created.",
-            token,
-            user: {
-              firstName,
-              lastName,
-              email,
-              role,
-              phoneNumber,
-              image,
-            },
+            accessToken,
+            refreshToken,
           });
         } else {
           res.status(400).json({
@@ -115,7 +121,7 @@ class AuthController {
       image,
     } = req.body;
     try {
-      const userExist = await AuthServices.getUser({ email: email });
+      const userExist = await UserServices.getUser({ email: email });
       if (userExist) {
         res.status(400).json({
           message: "User already exists.",
@@ -127,7 +133,7 @@ class AuthController {
         password,
         role: "futsal",
       });
-      const user = await AuthServices.addUser(_user);
+      const user = await UserServices.addUser(_user);
       if (user) {
         const _futsal = new Futsal({
           userId: user._id,
@@ -136,23 +142,27 @@ class AuthController {
           address,
           phoneNumber,
           image,
-          role: user.role,
         });
-        const futsal = await AuthServices.addFutsal(_futsal);
+        const futsal = await UserServices.addFutsal(_futsal);
         if (futsal) {
-          const token = await AuthServices.createJwtToken({
-            _id: user.id,
-            role: user.role,
+          const { accessToken, refreshToken } =
+            await TokenServices.createJwtToken({
+              _id: user.id,
+              role: user.role,
+            });
+
+          res.cookie("refreshToken", refreshToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true,
           });
-          res.cookie("futsa-token", token);
+          res.cookie("accessToken", accessToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true,
+          });
           res.status(200).json({
             message: "User successfully created.",
-            token,
-            user: {
-              email,
-              role: user.role,
-            },
-            futsal,
+            accessToken,
+            refreshToken,
           });
         } else {
           res.status(400).json({
@@ -170,6 +180,15 @@ class AuthController {
       });
     }
   };
+
+  async logout(req: Request, res: Response) {
+    const { refreshToken } = req.cookies;
+    // await TokenService.removeToken(refreshToken);
+
+    res.clearCookie("refreshToken");
+    res.clearCookie("accessToken");
+    res.json({ user: {}, auth: false });
+  }
 }
 
 export default new AuthController();
