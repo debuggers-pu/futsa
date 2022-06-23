@@ -18,6 +18,16 @@ class AuthController {
               id: user._id,
               role,
             });
+          try {
+            await TokenServices.addToken({
+              refreshToken,
+              userId: user._id,
+            });
+          } catch (error: any) {
+            res.status(400).json({
+              message: "Token not added",
+            });
+          }
           res.cookie("refreshToken", refreshToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30,
             httpOnly: true,
@@ -32,18 +42,21 @@ class AuthController {
             refreshToken,
           });
         } else {
-          res.status(500).json({
+          res.status(400).json({
             message: "Authentication credentials didn't match.",
           });
         }
       } else {
-        res.status(500).json({
+        res.status(404).json({
           message: "User not found.",
         });
       }
     } catch (error: any) {
-      res.status(404).json({
-        message: error.message,
+      res.status(500).json({
+        message: {
+          1: error.message,
+          2: "Server error.",
+        },
       });
     }
   };
@@ -80,6 +93,16 @@ class AuthController {
               _id: user.id,
               role: user.role,
             });
+          try {
+            await TokenServices.addToken({
+              refreshToken,
+              userId: user._id,
+            });
+          } catch (error: any) {
+            res.status(400).json({
+              message: "Token not added",
+            });
+          }
           res.cookie("refreshToken", refreshToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30,
             httpOnly: true,
@@ -104,8 +127,11 @@ class AuthController {
         });
       }
     } catch (error: any) {
-      res.status(404).json({
-        message: error.message,
+      res.status(500).json({
+        message: {
+          1: error.message,
+          2: "Server error.",
+        },
       });
     }
   };
@@ -150,6 +176,16 @@ class AuthController {
               _id: user.id,
               role: user.role,
             });
+          try {
+            await TokenServices.addToken({
+              refreshToken,
+              userId: user._id,
+            });
+          } catch (error: any) {
+            res.status(400).json({
+              message: "Token not added",
+            });
+          }
 
           res.cookie("refreshToken", refreshToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30,
@@ -175,16 +211,40 @@ class AuthController {
         });
       }
     } catch (error: any) {
-      res.status(404).json({
-        message: error.message,
+      res.status(500).json({
+        message: {
+          1: error.message,
+          2: "Server error.",
+        },
       });
     }
   };
 
+  refresh = async (req: Request, res: Response) => {
+    const { refreshToken: refreshTokenfromCookie } = req.cookies;
+    let userData;
+    try {
+      userData = TokenServices.verifyToken(
+        refreshTokenfromCookie,
+        process.env.REFRESH_SECRET_KEY
+      );
+    } catch (error: any) {
+      res.status(401).json({
+        message: {
+          1: error.message,
+          2: "Invalid Token",
+        },
+      });
+    }
+
+    // check if the refreshToken is available in database
+
+    // TODO: Complete it later when needed
+  };
+
   async logout(req: Request, res: Response) {
     const { refreshToken } = req.cookies;
-    // await TokenService.removeToken(refreshToken);
-
+    await TokenServices.removeToken(refreshToken);
     res.clearCookie("refreshToken");
     res.clearCookie("accessToken");
     res.json({ user: {}, auth: false });

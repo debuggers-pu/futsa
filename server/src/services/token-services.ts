@@ -6,7 +6,7 @@ class TokenServices {
     const secretKey: any = process.env.JWT_SECRET_KEY;
     const secretRefresh: any = process.env.REFRESH_SECRET_KEY;
     const accessToken = jwt.sign(data, secretKey, {
-      expiresIn: "1M",
+      expiresIn: "1y",
     });
     const refreshToken = jwt.sign(data, secretRefresh, {
       expiresIn: "1y",
