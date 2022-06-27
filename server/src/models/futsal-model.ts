@@ -7,6 +7,7 @@ interface Ifutsal {
   address: string;
   phoneNumber: number;
   image: string[];
+  description: string;
 }
 
 const FutsalSchema = new Schema<Ifutsal>(
@@ -35,6 +36,9 @@ const FutsalSchema = new Schema<Ifutsal>(
     address: {
       type: String,
       required: true,
+    },
+    description: {
+      type: String,
     },
     image: {
       type: [],

@@ -23,7 +23,7 @@ app.use(cors(corsOption));
 app.use(morgan("dev"));
 
 // routes
-app.use("/api/auth", router);
+app.use("/api", router);
 
 const PORT = 8000 || process.env.PORT;
 app.listen(PORT, () => {

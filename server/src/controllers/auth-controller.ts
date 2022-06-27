@@ -62,8 +62,9 @@ class AuthController {
   };
 
   customerSignup = async (req: Request, res: Response) => {
-    const { firstName, lastName, email, password, phoneNumber, image, role } =
+    const { firstName, lastName, email, password, phoneNumber, role } =
       req.body;
+    const image = req.file?.path;
     try {
       const userExist = await UserServices.getUser({ email: email });
       if (userExist) {
@@ -115,6 +116,7 @@ class AuthController {
             message: "User successfully created.",
             accessToken,
             refreshToken,
+            image,
           });
         } else {
           res.status(400).json({
@@ -137,15 +139,12 @@ class AuthController {
   };
 
   futsalSignup = async (req: Request, res: Response) => {
-    const {
-      futsalName,
-      ownerName,
-      address,
-      email,
-      password,
-      phoneNumber,
-      image,
-    } = req.body;
+    const { futsalName, ownerName, address, email, password, phoneNumber } =
+      req.body;
+    const files = req.files;
+    const image: string[] = [files].map((file: any) =>
+      file.map((f: any) => f.path)
+    );
     try {
       const userExist = await UserServices.getUser({ email: email });
       if (userExist) {
