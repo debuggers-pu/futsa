@@ -1,3 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .hover-effect {
+    @apply hover:underline cursor-pointer;
+  }
+
+  .selected {
+    @apply bg-primaryColor px-5 py-2 text-white text-xs rounded-md cursor-pointer;
+  }
+}
+
+@layer base {
+  html {
+    @apply font-roboto;
+  }
+}
