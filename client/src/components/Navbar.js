@@ -21,13 +21,16 @@ const Navbar = () => {
         {/* Searchbox */}
 
         <div className="flex items-center cursor-pointer space-x-5">
+          <p className="text-white opacity-80 hover:opacity-100 text-sm">
+            Have a futsal ?
+          </p>
           {/* location */}
           <div className="flex items-center cursor-pointer">
             <p className="text-sm text-white opacity-80">Pokhara</p>
             <IoMdArrowDropdown className="h-6 w-6 text-white" />
           </div>
           <Link to={"/auth"}>
-            <button className="selected">Sign in</button>
+            <button className="seleected">Sign in</button>
           </Link>
           <MdNotifications className="h-6 w-6 text-primaryColor p-1 rounded-full bg-white hover-effect" />
         </div>

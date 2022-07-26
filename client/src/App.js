@@ -6,6 +6,7 @@ import FutsalDashboard from "./pages/FutsalDashboard";
 import { useSelector } from "react-redux";
 import Navbar from "./components/Navbar";
 import SubNavbar from "./components/SubNavbar";
+import FutsalPage from "./pages/FutsalPage";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -27,6 +28,10 @@ function App() {
           <Route
             path="/futsal-dashboard"
             element={isAuthenticated ? <FutsalDashboard /> : <Auth />}
+          />
+          <Route
+            path="/futsal/:id"
+            element={!isAuthenticated ? <FutsalPage /> : <Auth />}
           />
         </Routes>
       </div>

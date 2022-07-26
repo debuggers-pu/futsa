@@ -18,7 +18,7 @@ const Auth = () => {
             <h1
               className={` ${
                 select === "login"
-                  ? "selected"
+                  ? "seleected"
                   : "text-md font-bold  hover-effect"
               }`}
               onClick={() => setSelect("login")}
@@ -29,7 +29,7 @@ const Auth = () => {
               onClick={() => setSelect("signup")}
               className={` ${
                 select === "signup"
-                  ? "selected"
+                  ? "seleected"
                   : "text-md font-bold  hover-effect "
               }`}
             >
