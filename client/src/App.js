@@ -14,27 +14,25 @@ function App() {
     <div className="App">
       <Navbar />
       <SubNavbar />
-      <div>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route
-            path="/auth"
-            element={isAuthenticated ? <Homepage /> : <Auth />}
-          />
-          <Route
-            path="/search"
-            element={isAuthenticated ? <SearchPage /> : <Auth />}
-          />
-          <Route
-            path="/futsal-dashboard"
-            element={isAuthenticated ? <FutsalDashboard /> : <Auth />}
-          />
-          <Route
-            path="/futsal/:id"
-            element={!isAuthenticated ? <FutsalPage /> : <Auth />}
-          />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route
+          path="/auth"
+          element={isAuthenticated ? <Homepage /> : <Auth />}
+        />
+        <Route
+          path="/search"
+          element={isAuthenticated ? <SearchPage /> : <Auth />}
+        />
+        <Route
+          path="/futsal-dashboard"
+          element={isAuthenticated ? <FutsalDashboard /> : <Auth />}
+        />
+        <Route
+          path="/futsal/:id"
+          element={!isAuthenticated ? <FutsalPage /> : <Auth />}
+        />
+      </Routes>
     </div>
   );
 }
