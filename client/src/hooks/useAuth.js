@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setAuthModal } from "../redux/slices/modalSlice";
 
 export const useAuth = () => {
-  const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isauthenticated);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/auth");
+      dispatch(setAuthModal(true));
     }
   }, []);
 };

@@ -9,17 +9,22 @@ const BookingSteps = () => {
     e.preventDefault();
     dispatch(setBookModal(false));
   }
-  const booking = useSelector((state) => state.booking.selectedDate);
+  // const booking = useSelector((state) => state.booking.booking);
   const onClickHandler = () => {};
   return (
     <div>
       <Modal onOutClick={onOutClick}>
         <div>
-          <h1>{booking}</h1>
+          <p>Futsals</p>
         </div>
-        <button className=" seleected" onClick={onClickHandler()}>
-          Next
-        </button>
+        <div className="space-x-4">
+          <button className=" seleected" onClick={onClickHandler()}>
+            Back
+          </button>
+          <button className=" seleected" onClick={onClickHandler()}>
+            Next
+          </button>
+        </div>
       </Modal>
     </div>
   );

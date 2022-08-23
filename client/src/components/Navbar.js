@@ -1,10 +1,17 @@
 import React from "react";
 import Searchbox from "./Searchbox";
 import { Link } from "react-router-dom";
-import { MdNotifications } from "react-icons/md";
+import { MdNotifications, MdAccountCircle } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthModal } from "../redux/slices/modalSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isauthenticated);
+  const onSignIn = () => {
+    dispatch(setAuthModal(true));
+  };
   return (
     <div>
       <div className="flex justify-between items-center p-3 px-10 w-full shadow-sm bg-backgroundDark ">
@@ -29,10 +36,15 @@ const Navbar = () => {
             <p className="text-sm text-white opacity-80">Pokhara</p>
             <IoMdArrowDropdown className="h-6 w-6 text-white" />
           </div>
-          <Link to={"/auth"}>
-            <button className="seleected">Sign in</button>
-          </Link>
-          <MdNotifications className="h-6 w-6 text-primaryColor p-1 rounded-full bg-white hover-effect" />
+          {isAuthenticated ? (
+            <img src={"/images/avatar.png"} alt="image" />
+          ) : (
+            <button className="seleected" onClick={onSignIn}>
+              Sign in
+            </button>
+          )}
+
+          <MdNotifications className="h-6 w-6 text-primaryColor p-1 rounded-md bg-white hover-effect" />
         </div>
         {/* notificationicon */}
       </div>

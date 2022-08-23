@@ -6,11 +6,12 @@ import moment from "moment";
 import BookingSteps from "../components/BookingSteps/BookingSteps";
 import { useDispatch, useSelector } from "react-redux";
 import { setBookModal } from "../redux/slices/modalSlice";
+
 import {
-  setBookTime,
   setBookDate,
   setBookingSelectedTime,
 } from "../redux/slices/bookingSlice";
+import { useAuth } from "../hooks/useAuth";
 
 const returnDates = () => {
   const dates = [];
@@ -25,6 +26,8 @@ const returnDates = () => {
 
 const FutsalPage = () => {
   const bookModal = useSelector((state) => state.modal.bookModal);
+  useAuth();
+
   const settings = {
     arrows: false,
     dots: true,
@@ -103,7 +106,7 @@ const FutsalPage = () => {
       <section className="mb-4">
         <TabView />
       </section>
-      {bookModal && <BookingSteps />}
+      {bookModal ? <BookingSteps /> : null}
     </div>
   );
 };

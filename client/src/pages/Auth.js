@@ -1,45 +1,28 @@
 import React, { useState } from "react";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
-import { ImCross } from "react-icons/im";
+import Modal from "../components/shared/Modal";
+import { useDispatch } from "react-redux";
+import { setAuthModal } from "../redux/slices/modalSlice";
 
 const Auth = () => {
   const [select, setSelect] = useState("login");
   const pages = {
-    login: <Login />,
-    signup: <Signup />,
+    login: <Login onClick={() => setSelect("signup")} />,
+    signup: <Signup onClick={() => setSelect("login")} />,
   };
+  const dispatch = useDispatch();
+  const onOutClick = () => {
+    dispatch(setAuthModal());
+  };
+
   return (
     <>
-      <div className="bg-black opacity-60 absolute top-0 bottom-0 right-0 left-0"></div>
-      <div className="bg-white flex flex-col rounded-md p-4 absolute z-10 w-[500px] left-[30%] top-[15%]">
-        <div className="flex justify-between ">
-          <div className="flex space-x-4 items-center justify-center">
-            <h1
-              className={` ${
-                select === "login"
-                  ? "seleected"
-                  : "text-md font-bold  hover-effect"
-              }`}
-              onClick={() => setSelect("login")}
-            >
-              Login
-            </h1>
-            <h1
-              onClick={() => setSelect("signup")}
-              className={` ${
-                select === "signup"
-                  ? "seleected"
-                  : "text-md font-bold  hover-effect "
-              }`}
-            >
-              Register
-            </h1>
-          </div>
-          <ImCross className="text-red-400 hover:opacity-75" />
+      <Modal onOutClick={onOutClick}>
+        <div className="flex flex-col justify-center">
+          <div>{select === "login" ? pages.login : pages.signup}</div>
         </div>
-        <div>{select === "login" ? pages.login : pages.signup}</div>
-      </div>
+      </Modal>
     </>
   );
 };

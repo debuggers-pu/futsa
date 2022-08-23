@@ -3,7 +3,7 @@ import React from "react";
 const InputField = ({ onChange, isError, name, type, id, placeholder }) => {
   return (
     <div>
-      <label htmlFor={name} className="text-sm opacity-60">
+      <label htmlFor={name} className="text-xs opacity-60">
         {placeholder}
       </label>
       <input
@@ -15,7 +15,7 @@ const InputField = ({ onChange, isError, name, type, id, placeholder }) => {
         type={!type ? "text" : type}
         // placeholder={placeholder}
         onChange={onChange}
-        autoComplete="off"
+        autocomplete="off"
       />
     </div>
   );
