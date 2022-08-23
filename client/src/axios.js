@@ -24,3 +24,6 @@ export const signin = (data) => api.post("auth/login", data);
 export const signupUser = (data) => api.post("auth/user/signup", data);
 
 export default api;
+
+// login not working if header content is multipart/form-data
+// file uploading not working if header content is application/json
