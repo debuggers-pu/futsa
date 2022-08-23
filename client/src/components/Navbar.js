@@ -37,7 +37,12 @@ const Navbar = () => {
             <IoMdArrowDropdown className="h-6 w-6 text-white" />
           </div>
           {isAuthenticated ? (
-            <img src={"/images/avatar.png"} alt="image" />
+            <img
+              src={"/images/avatar.png"}
+              alt="image"
+              loading="lazy"
+              className="h-6 w-6"
+            />
           ) : (
             <button className="seleected" onClick={onSignIn}>
               Sign in

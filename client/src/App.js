@@ -15,7 +15,13 @@ function App() {
   return (
     <div className="App">
       {!isAuthenticated && authModal ? <Auth /> : ""}
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          className: "font-bold text-sm",
+        }}
+      />
       <Navbar />
       <SubNavbar />
       <Routes>

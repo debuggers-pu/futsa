@@ -8,8 +8,9 @@ import TokenServices from "../services/token-services";
 class AuthController {
   login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
+    console.log(email);
     try {
-      const user = await UserServices.getUser({ email: email });
+      const user = await UserServices.getUser({ email });
       if (user) {
         if (user.authenticate(password)) {
           const { role } = user;

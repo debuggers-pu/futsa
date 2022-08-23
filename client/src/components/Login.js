@@ -22,9 +22,11 @@ const Login = ({ onClick }) => {
           dispatch(setUser(email));
           dispatch(setAuthModal(false));
         }
+      } else {
+        toast.error("Please fill all the fields");
       }
     } catch (error) {
-      toast.error(error.message);
+      console.log(error);
     }
   };
 
@@ -36,7 +38,7 @@ const Login = ({ onClick }) => {
       <InputField
         placeholder={"Enter your email address"}
         name="email"
-        type={"email"}
+        type="email"
         onChange={(e) => setEmail(e.target.value)}
       />
       <InputField

@@ -21,23 +21,32 @@ const Signup = ({ onClick }) => {
   };
 
   const signupHandler = async () => {
-    console.log(credentials);
     try {
-      const res = await signupUser(credentials);
-      if (res.status === 200) {
-        console.log("success");
-        dispatch(setAuthModal(false));
-        dispatch(setAuthenticated(true));
-        dispatch(
-          setUser({
-            email: credentials.email,
-          })
-        );
-        dispatch(setToken(res.data));
-        toast.success(res.data.message);
+      if (
+        credentials.email &&
+        credentials.password &&
+        credentials.firstName &&
+        credentials.image &&
+        credentials.phoneNumber &&
+        credentials.lastName
+      ) {
+        const res = await signupUser(credentials);
+        if (res.status === 200) {
+          console.log("success");
+          dispatch(setAuthModal(false));
+          dispatch(setAuthenticated(true));
+          dispatch(
+            setUser({
+              email: credentials.email,
+            })
+          );
+          dispatch(setToken(res.data));
+          toast.success(res.data.message);
+        }
+      } else {
+        toast.error("Please fill all the fields");
       }
     } catch (err) {
-      toast.error(err.message);
       console.log(err);
     }
   };
