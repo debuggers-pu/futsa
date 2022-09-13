@@ -1,6 +1,6 @@
 import React from "react";
 import Searchbox from "./Searchbox";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { MdNotifications, MdAccountCircle } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,9 +28,11 @@ const Navbar = () => {
         {/* Searchbox */}
 
         <div className="flex items-center cursor-pointer space-x-5">
-          <p className="text-white opacity-80 hover:opacity-100 text-sm">
-            Have a futsal ?
-          </p>
+          <NavLink to={"/owner"}>
+            <p className="text-white opacity-80 hover:opacity-100 text-sm">
+              Have a futsal ?
+            </p>
+          </NavLink>
           {/* location */}
           <div className="flex items-center cursor-pointer">
             <p className="text-sm text-white opacity-80">Pokhara</p>

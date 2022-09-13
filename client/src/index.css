@@ -12,6 +12,22 @@
   .seleected {
     @apply bg-primaryColor px-5 py-2 text-white text-xs rounded-md cursor-pointer;
   }
+
+  .unseleected {
+    @apply bg-blue-400 px-5 py-2 text-white text-xs rounded-md cursor-pointer;
+  }
+
+  .available {
+    @apply bg-secondaryDark text-white cursor-pointer opacity-100 hover:opacity-80;
+  }
+
+  .pending {
+    @apply bg-yellow-400 text-white cursor-pointer opacity-80;
+  }
+
+  .booked {
+    @apply bg-green-500 text-white cursor-pointer opacity-80;
+  }
 }
 
 @layer base {
