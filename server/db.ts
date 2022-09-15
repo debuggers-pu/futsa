@@ -5,7 +5,7 @@ const connectDB = async () => {
     //database Name
     const databaseName = "futsa";
     const con = await mongoose.connect(
-      `mongodb://127.0.0.1:27017/${databaseName}`
+      `mongodb://localhost:27017/${databaseName}`
     );
     console.log(`Database connected : ${con.connection.host}`);
   } catch (error: any) {

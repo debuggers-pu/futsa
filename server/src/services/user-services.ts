@@ -25,7 +25,9 @@ class UserServices {
   };
 
   getCustomer = async (key: any) => {
-    const customer = await Customer.findOne(key);
+    const customer = await Customer.findOne(key).select(
+      "-createdAt -updatedAt"
+    );
     if (customer) {
       return customer;
     }

@@ -3,7 +3,7 @@ import InputField from "./shared/InputField";
 import { signupUser } from "../axios";
 import { useDispatch } from "react-redux";
 import { setAuthModal } from "../redux/slices/modalSlice";
-import { setAuthenticated, setToken, setUser } from "../redux/slices/authSlice";
+import { setAuthenticated, setUser } from "../redux/slices/authSlice";
 
 import toast from "react-hot-toast";
 
@@ -35,12 +35,7 @@ const Signup = ({ onClick }) => {
           console.log("success");
           dispatch(setAuthModal(false));
           dispatch(setAuthenticated(true));
-          dispatch(
-            setUser({
-              email: credentials.email,
-            })
-          );
-          dispatch(setToken(res.data));
+          dispatch(setUser(res.data.userData));
           toast.success(res.data.message);
         }
       } else {

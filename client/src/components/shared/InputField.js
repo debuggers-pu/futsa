@@ -15,7 +15,6 @@ const InputField = ({ onChange, isError, name, type, id, placeholder }) => {
         type={!type ? "text" : type}
         // placeholder={placeholder}
         onChange={onChange}
-        autocomplete="off"
       />
     </div>
   );

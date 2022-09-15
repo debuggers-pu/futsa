@@ -9,6 +9,7 @@ const OwnerApp = () => {
   return (
     <div>
       <Routes>
+        <Route path="/" element={<OwnerLogin />} />
         <Route path="/login" element={<OwnerLogin />} />
         <Route path="/register" element={<OwnerRegister />} />
         <Route path="/dashboard/*" element={<Dashboard />} />

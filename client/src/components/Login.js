@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputField from "./shared/InputField";
 import { useDispatch } from "react-redux";
-import { setAuthenticated, setToken, setUser } from "../redux/slices/authSlice";
+import { setAuthenticated, setUser } from "../redux/slices/authSlice";
 import { setAuthModal } from "../redux/slices/modalSlice";
 import { signin } from "../axios";
 import toast from "react-hot-toast";
@@ -18,8 +18,7 @@ const Login = ({ onClick }) => {
         if (res.status === 200) {
           toast.success(res.data.message);
           dispatch(setAuthenticated(true));
-          dispatch(setToken(res.data));
-          dispatch(setUser(email));
+          dispatch(setUser(res.data.user));
           dispatch(setAuthModal(false));
         }
       } else {

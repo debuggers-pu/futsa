@@ -8,7 +8,6 @@ import TokenServices from "../services/token-services";
 class AuthController {
   login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
-    console.log(email);
     try {
       const user = await UserServices.getUser({ email });
       if (user) {
@@ -37,10 +36,14 @@ class AuthController {
             maxAge: 1000 * 60 * 60 * 24 * 30,
             httpOnly: true,
           });
+          const userData = {
+            id: user._id,
+            email,
+            role,
+          };
           res.status(200).json({
             message: "User successfully logged in.",
-            accessToken,
-            refreshToken,
+            user: userData,
           });
         } else {
           res.status(400).json({
@@ -66,6 +69,7 @@ class AuthController {
     const { firstName, lastName, email, password, phoneNumber, role } =
       req.body;
     const image = req.file?.path;
+    console.log(image);
     try {
       const userExist = await UserServices.getUser({ email: email });
       if (userExist) {
@@ -87,12 +91,13 @@ class AuthController {
           lastName,
           phoneNumber,
           image,
+          role: user.role,
         });
         const customer = await UserServices.addCustomer(_customer);
         if (customer) {
           const { accessToken, refreshToken } =
             await TokenServices.createJwtToken({
-              _id: user.id,
+              _id: user._id,
               role: user.role,
             });
           try {
@@ -115,9 +120,11 @@ class AuthController {
           });
           res.status(200).json({
             message: "User successfully created.",
-            accessToken,
-            refreshToken,
-            image,
+            userData: {
+              id: user._id,
+              email,
+              role: user.role,
+            },
           });
         } else {
           res.status(400).json({

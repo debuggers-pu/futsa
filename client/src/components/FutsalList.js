@@ -89,7 +89,7 @@ const FutsalList = () => {
     <Slider {...settings}>
       {flist.map((item, id) => {
         return (
-          <div className="rounded-sm mr-6 p-3 shadow-sm">
+          <div className="rounded-sm mr-6 p-3 shadow-sm" key={id}>
             <img
               loading="lazy"
               src="images/futsal.jpg"
@@ -100,8 +100,8 @@ const FutsalList = () => {
             <p className="text-sm font-bold opacity-70">{item.location}</p>
             <p className="text-xs font-bold text-green-400">{item.price}</p>
             <div className="text-xs font-bold flex">
-              {[...Array(item.rating)].map((_) => {
-                return <AiFillStar className="text-yellow-500" />;
+              {[...Array(item.rating)].map((_, id) => {
+                return <AiFillStar className="text-yellow-500" key={id} />;
               })}
             </div>
             <Link to={`futsal/${id}`}>

@@ -1,7 +1,7 @@
 import React from "react";
 import Searchbox from "./Searchbox";
 import { Link, NavLink } from "react-router-dom";
-import { MdNotifications, MdAccountCircle } from "react-icons/md";
+import { MdNotifications } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthModal } from "../redux/slices/modalSlice";
@@ -9,9 +9,12 @@ import { setAuthModal } from "../redux/slices/modalSlice";
 const Navbar = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isauthenticated);
+  const user = useSelector((state) => state.auth.user);
+
   const onSignIn = () => {
     dispatch(setAuthModal(true));
   };
+
   return (
     <div>
       <div className="flex justify-between items-center p-3 px-10 w-full shadow-sm bg-backgroundDark ">
@@ -27,7 +30,7 @@ const Navbar = () => {
         </div>
         {/* Searchbox */}
 
-        <div className="flex items-center cursor-pointer space-x-5">
+        <div className="flex items-center justify-center cursor-pointer space-x-5">
           <NavLink to={"/owner"}>
             <p className="text-white opacity-80 hover:opacity-100 text-sm">
               Have a futsal ?
@@ -40,10 +43,14 @@ const Navbar = () => {
           </div>
           {isAuthenticated ? (
             <img
-              src={"/images/avatar.png"}
+              src={`${
+                user.details.image
+                  ? `http://localhost:8000/${user.details.image.split("\\")[1]}`
+                  : ""
+              }`}
               alt="image"
               loading="lazy"
-              className="h-6 w-6"
+              className="h-6 w-6 rounded-md"
             />
           ) : (
             <button className="seleected" onClick={onSignIn}>

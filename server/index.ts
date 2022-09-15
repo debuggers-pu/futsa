@@ -19,6 +19,7 @@ connectDB();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static("uploads"));
 app.use(cors(corsOption));
 app.use(morgan("dev"));
 

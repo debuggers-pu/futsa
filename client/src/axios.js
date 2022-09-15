@@ -4,10 +4,6 @@ import toast from "react-hot-toast";
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   withCredentials: true,
-  headers: {
-    // "Content-Type": "multipart/form-data",
-    Accept: "application/json",
-  },
 });
 
 api.interceptors.response.use(null, (error) => {
@@ -20,10 +16,24 @@ api.interceptors.response.use(null, (error) => {
   }
 });
 
-export const signin = (data) => api.post("auth/login", data);
-export const signupUser = (data) => api.post("auth/user/signup", data);
+export const signin = (data) =>
+  api.post("auth/login", data, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+export const signupUser = (data) =>
+  api.post("auth/user/signup", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+export const getUserDetail = (data) =>
+  api.post("user/getcustomer", data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
 export default api;
-
-// login not working if header content is multipart/form-data
-// file uploading not working if header content is application/json
