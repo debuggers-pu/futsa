@@ -1,7 +1,13 @@
 import Homepage from "./pages/Homepage";
 import SearchPage from "./pages/SearchPage";
 import Auth from "./pages/Auth";
-import { Routes, Route } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  useMatch,
+  Navigate,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/Navbar";
 import SubNavbar from "./components/SubNavbar";
@@ -9,7 +15,7 @@ import FutsalPage from "./pages/FutsalPage";
 import { Toaster } from "react-hot-toast";
 import OwnerApp from "./OwnerApp/OwnerApp";
 import { useEffect } from "react";
-import { getUserDetail } from "./axios";
+import { getUserDetail, getFutsalDetail } from "./axios";
 import { setUserDetails } from "./redux/slices/authSlice";
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -18,7 +24,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user.info.id) {
+    if (user.info.id && user.info.role === "customer") {
       const getUser = async () => {
         const res = await getUserDetail({ userId: user.info.id });
         dispatch(setUserDetails(res.data));
@@ -37,7 +43,7 @@ function App() {
           className: "font-bold text-sm",
         }}
       />
-      {user.details.role !== "futsal" ? (
+      {user.details.role === "customer" || user.info.role === "customer" ? (
         <div>
           <Navbar />
           <SubNavbar />

@@ -16,6 +16,10 @@ const Login = ({ onClick }) => {
       if (email !== "" && password !== "") {
         const res = await signin({ email, password });
         if (res.status === 200) {
+          if (res.data.user.role === "futsal") {
+            toast.error("User not found");
+            return;
+          }
           toast.success(res.data.message);
           dispatch(setAuthenticated(true));
           dispatch(setUser(res.data.user));

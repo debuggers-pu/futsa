@@ -34,9 +34,25 @@ class UserServices {
   };
 
   getFutsal = async (key: any) => {
-    const futsal = await Futsal.findOne(key).populate("userId");
+    const futsal = await Futsal.findOne(key).select("-createdAt -updatedAt");
     if (futsal) {
       return futsal;
+    }
+  };
+
+  getAllFutsal = async () => {
+    const futsals = await Futsal.find().select("-createdAt -updatedAt -userId");
+    if (futsals) {
+      return futsals;
+    }
+  };
+
+  getFutsalByLocation = async (key: string) => {
+    const futsals = await Futsal.find({ address: key }).select(
+      "-createdAt -updatedAt -userId"
+    );
+    if (futsals) {
+      return futsals;
     }
   };
 }

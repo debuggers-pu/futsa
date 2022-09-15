@@ -5,6 +5,7 @@ import { MdNotifications } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthModal } from "../redux/slices/modalSlice";
+import { setRole } from "../redux/slices/authSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,10 @@ const Navbar = () => {
 
   const onSignIn = () => {
     dispatch(setAuthModal(true));
+  };
+
+  const onClick = () => {
+    return;
   };
 
   return (
@@ -31,11 +36,14 @@ const Navbar = () => {
         {/* Searchbox */}
 
         <div className="flex items-center justify-center cursor-pointer space-x-5">
-          <NavLink to={"/owner"}>
-            <p className="text-white opacity-80 hover:opacity-100 text-sm">
+          <Link to={"/owner"} target={"_self"}>
+            <p
+              className="text-white opacity-80 hover:opacity-100 text-sm"
+              onClick={onClick}
+            >
               Have a futsal ?
             </p>
-          </NavLink>
+          </Link>
           {/* location */}
           <div className="flex items-center cursor-pointer">
             <p className="text-sm text-white opacity-80">Pokhara</p>

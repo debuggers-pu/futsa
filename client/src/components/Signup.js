@@ -12,12 +12,10 @@ const Signup = ({ onClick }) => {
   const [credentials, setCredentials] = useState({});
   const onChangeHandler = (name, e) => {
     setCredentials({ ...credentials, [name]: e.target.value });
-    console.log(credentials);
   };
 
   const changeImage = (e) => {
     setCredentials({ ...credentials, image: e.target.files[0] });
-    console.log(e.target.files[0]);
   };
 
   const signupHandler = async () => {

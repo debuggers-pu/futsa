@@ -1,13 +1,38 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { signin } from "../axios";
 import InputField from "../components/shared/InputField";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setAuthenticated, setUser } from "../redux/slices/authSlice";
 
 const OwnerLogin = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const onLogin = () => {
-    console.log("login");
+  const onLogin = async (e) => {
+    e.preventDefault();
+    try {
+      if (email !== "" && password !== "") {
+        const res = await signin({ email, password });
+        if (res.status === 200) {
+          if (res.data.user.role === "customer") {
+            toast.error("User not found");
+            return;
+          }
+          toast.success(res.data.message);
+          dispatch(setAuthenticated(true));
+          dispatch(setUser(res.data.user));
+          navigate(`/owner/dashboard/${res.data.user.id}`);
+        }
+      } else {
+        toast.error("Please fill all the fields");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="flex justify-center mt-24">

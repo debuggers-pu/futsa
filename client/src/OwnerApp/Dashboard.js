@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import IconButton from "../components/shared/IconButton";
 import {
   AiFillQuestionCircle,
@@ -10,9 +10,27 @@ import { BiFootball, BiConversation } from "react-icons/bi";
 import Searchbox from "../components/Searchbox";
 import moment from "moment";
 import BookingsDetails from "./pages/BookingsDetails";
-import { Route, Router, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getFutsalDetail } from "../axios";
+import {
+  setAuthenticated,
+  setUser,
+  setUserDetails,
+} from "../redux/slices/authSlice";
 
 const Dashboard = () => {
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (user.info.id && user.info.role === "futsal") {
+      const getFutsal = async () => {
+        const res = await getFutsalDetail({ userId: user.info.id });
+        dispatch(setUserDetails(res.data));
+      };
+      getFutsal();
+    }
+  }, [user.info.id]);
   return (
     <div className="flex h-screen w-screen">
       {/* left panel */}
@@ -20,10 +38,17 @@ const Dashboard = () => {
         <h1 className="text-xl font-bold text-center mb-6">FUTSA</h1>
         {/* Buttons */}
         <div className="mt-2">
-          <IconButton title={"Dashboard"} isselected path="owner/dashboard">
+          <IconButton
+            title={"Dashboard"}
+            isselected
+            path={`owner/dashboard/${user.info.id}`}
+          >
             <MdOutlineSpaceDashboard className="h-5 w-5 " />
           </IconButton>
-          <IconButton title={"Bookings"} path="owner/dashboard/bookings">
+          <IconButton
+            title={"Bookings"}
+            path={`owner/dashboard/${user.info.id}/bookings`}
+          >
             <BiFootball className="h-5 w-5 " />
           </IconButton>
           <IconButton title={"History"} path="owner/dashboard/bookings">
@@ -56,8 +81,13 @@ const Dashboard = () => {
 export default Dashboard;
 
 const Header = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onSignOut = () => {
-    return;
+    dispatch(setAuthenticated(false));
+    dispatch(setUser(""));
+    dispatch(setUserDetails(""));
+    navigate("/owner/login");
   };
   return (
     <div className="flex space-x-4 items-center justify-end p-4">

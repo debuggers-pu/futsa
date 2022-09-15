@@ -1,18 +1,35 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { signupFutsal } from "../axios";
 import InputField from "../components/shared/InputField";
+import { setAuthenticated, setUser } from "../redux/slices/authSlice";
 
 const OwnerRegister = () => {
-  const onChangeHandler = () => {
-    return;
+  const [credentials, setCredentials] = useState({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const onChangeHandler = (name, e) => {
+    setCredentials({ ...credentials, [name]: e.target.value });
   };
 
-  const changeImage = () => {
-    console.log("yes");
+  const changeImage = (e) => {
+    setCredentials({ ...credentials, image: e.target.files[0] });
   };
 
-  const signupHandler = () => {
-    console.log("signup");
+  const signupHandler = async () => {
+    try {
+      const res = await signupFutsal(credentials);
+      if (res.status === 200) {
+        dispatch(setAuthenticated(true));
+        dispatch(setUser(res.data));
+        navigate(`/owner/dashboard/${res.data.id}`);
+        toast.success("Futsal registered Successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

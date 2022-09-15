@@ -5,10 +5,14 @@ import {
   ownerMiddleware,
 } from "../middlewares/auth-middleware";
 
-import customerController from "../controllers/customer-controller";
+import UserController from "../controllers/user-controller";
 
 const router = Router();
 
-router.post("/getcustomer", customerController.getCustomer);
+router.post("/getcustomer", UserController.getCustomer);
+router.post("/getfutsal", UserController.getFutsal);
+
+router.get("/futsal/getall", UserController.getAllFutsal);
+router.post("/futsal/getbylocation", UserController.getFutsalByLocation);
 
 export default router;

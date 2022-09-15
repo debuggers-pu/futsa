@@ -4,6 +4,7 @@ import Futsal from "../models/futsal-model";
 import User from "../models/user-model";
 import UserServices from "../services/user-services";
 import TokenServices from "../services/token-services";
+import { userMiddleware } from "../middlewares/auth-middleware";
 
 class AuthController {
   login = async (req: Request, res: Response) => {
@@ -204,8 +205,9 @@ class AuthController {
           });
           res.status(200).json({
             message: "User successfully created.",
-            accessToken,
-            refreshToken,
+            id: user._id,
+            email,
+            role: user.role,
           });
         } else {
           res.status(400).json({
