@@ -45,6 +45,9 @@ export const getFutsalDetail = (data) =>
 
 export const getAllFutsals = () => api.get("user/futsal/getall");
 
+export const getOneFutsalById = (data) =>
+  api.post("user/futsal/getfutsaldetail", data, configJ);
+
 export const getFutsalByLocation = (data) =>
   api.post("user/futsal/getbylocation", data, configJ);
 

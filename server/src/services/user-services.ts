@@ -55,6 +55,15 @@ class UserServices {
       return futsals;
     }
   };
+
+  getFutsalById = async (key: string) => {
+    const futsal = await Futsal.findById(key).select(
+      "-createdAt -updatedAt -userId"
+    );
+    if (futsal) {
+      return futsal;
+    }
+  };
 }
 
 export default new UserServices();

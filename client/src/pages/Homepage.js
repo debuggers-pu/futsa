@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "../components/shared/Banner";
 import { AiOutlineRight } from "react-icons/ai";
 import FutsalList from "../components/FutsalList";
+import { getAllFutsals } from "../axios";
 
 const Homepage = () => {
+  const [futsals, setFutsals] = useState([]);
+  useEffect(() => {
+    const getFutsal = async () => {
+      const res = await getAllFutsals();
+      setFutsals(res.data.futsals);
+      console.log(futsals);
+    };
+    getFutsal();
+
+    return () => {};
+  }, []);
   return (
     <div>
       <Banner />
@@ -16,7 +28,7 @@ const Homepage = () => {
           </div>
         </div>
         <div className="mx-10">
-          <FutsalList />
+          <FutsalList data={futsals} />
         </div>
 
         <div className="m-10">
@@ -29,7 +41,7 @@ const Homepage = () => {
         </div>
 
         <div className="mx-10 relative">
-          <FutsalList />
+          <FutsalList data={futsals} />
         </div>
       </div>
     </div>

@@ -5,80 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { AiFillStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const flist = [
-  {
-    name: "ABC Futsal Pvt. ltd",
-    location: "Nadipur Pokhara",
-    rating: 5,
-    images: ["fimage1.png", "fimage2.png"],
-    price: "Rs 1200/hr",
-  },
-  {
-    name: "ABC Futsal Pvt. ltd",
-    location: "Nadipur Pokhara",
-    rating: 3,
-    images: ["fimage1.png", "fimage2.png"],
-    price: "Rs 1500/hr",
-  },
-  {
-    name: "ABC Futsal Pvt. ltd",
-    location: "Nadipur Pokhara",
-    rating: 3,
-    images: ["fimage1.png", "fimage2.png"],
-    price: "Rs 1600/hr",
-  },
-  {
-    name: "ABC Futsal Pvt. ltd",
-    location: "Nadipur Pokhara",
-    rating: 2,
-    images: ["fimage1.png", "fimage2.png"],
-    price: "Rs 1200/hr",
-  },
-  {
-    name: "ABC Futsal Pvt. ltd",
-    location: "Nadipur Pokhara",
-    rating: 4,
-    images: ["fimage1.png", "fimage2.png"],
-    price: "Rs 1500/hr",
-  },
-  {
-    name: "ABC Futsal Pvt. ltd",
-    location: "Nadipur Pokhara",
-    rating: 5,
-    images: ["fimage1.png", "fimage2.png"],
-    price: "Rs 1600/hr",
-  },
-  {
-    name: "ABC Futsal Pvt. ltd",
-    location: "Nadipur Pokhara",
-    rating: 1,
-    images: ["fimage1.png", "fimage2.png"],
-    price: "Rs 1500/hr",
-  },
-  {
-    name: "ABC Futsal Pvt. ltd",
-    location: "Nadipur Pokhara",
-    rating: 3,
-    images: ["fimage1.png", "fimage2.png"],
-    price: "Rs 1600/hr",
-  },
-  {
-    name: "ABC Futsal Pvt. ltd",
-    location: "Nadipur Pokhara",
-    rating: 2,
-    images: ["fimage1.png", "fimage2.png"],
-    price: "Rs 1500/hr",
-  },
-  {
-    name: "ABC Futsal Pvt. ltd",
-    location: "Nadipur Pokhara",
-    rating: 5,
-    images: ["fimage1.png", "fimage2.png"],
-    price: "Rs 1600/hr",
-  },
-];
-
-const FutsalList = () => {
+const FutsalList = ({ data }) => {
   var settings = {
     infinite: false,
     speed: 500,
@@ -87,24 +14,28 @@ const FutsalList = () => {
   };
   return (
     <Slider {...settings}>
-      {flist.map((item, id) => {
+      {data.map((item, id) => {
+        const image = item.image[0][0].split("\\")[1];
         return (
-          <div className="rounded-sm mr-6 p-3 shadow-sm" key={id}>
+          <div className="rounded-sm mr-6 p-3 shadow-sm" key={item._id}>
             <img
               loading="lazy"
-              src="images/futsal.jpg"
+              src={`${process.env.REACT_APP_URL}/${image}`}
               alt="futsal"
-              className="rounded-md mb-2"
+              className="rounded-md mb-2 w-full h-[200px] object-cover "
             />
-            <h1 className="text-md font-bold">{item.name}</h1>
-            <p className="text-sm font-bold opacity-70">{item.location}</p>
-            <p className="text-xs font-bold text-green-400">{item.price}</p>
+
+            <h1 className="text-md font-bold">{item.futsalName}</h1>
+            <p className="text-sm font-bold opacity-70">{item.address}</p>
+            <p className="text-xs font-bold text-green-400">Rs 1200</p>
             <div className="text-xs font-bold flex">
-              {[...Array(item.rating)].map((_, id) => {
-                return <AiFillStar className="text-yellow-500" key={id} />;
+              {[...Array(id)].map((_, id) => {
+                return (
+                  <AiFillStar className="text-yellow-500" key={id * 200000} />
+                );
               })}
             </div>
-            <Link to={`futsal/${id}`}>
+            <Link to={`futsal/${item._id}`}>
               <button className="seleected mt-2">Book now</button>
             </Link>
           </div>

@@ -57,7 +57,9 @@ class UserController {
   async getFutsalByLocation(req: Request, res: Response) {
     const { location } = req.body;
     try {
-      const futsals: any = UserServices.getFutsalByLocation(location.trim());
+      const futsals: any = await UserServices.getFutsalByLocation(
+        location.trim()
+      );
       res.status(200).json({
         total: futsals.length,
         futsals,
@@ -68,5 +70,20 @@ class UserController {
       });
     }
   }
+
+  async getFutsalById(req: Request, res: Response) {
+    const { id } = req.body;
+    try {
+      const futsal: any = await UserServices.getFutsalById(id);
+      res.status(200).json({
+        futsal,
+      });
+    } catch (err) {
+      res.status(404).json({
+        message: "Something went wrong.",
+      });
+    }
+  }
 }
+
 export default new UserController();

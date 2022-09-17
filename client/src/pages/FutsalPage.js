@@ -6,12 +6,14 @@ import moment from "moment";
 import BookingSteps from "../components/BookingSteps/BookingSteps";
 import { useDispatch, useSelector } from "react-redux";
 import { setBookModal } from "../redux/slices/modalSlice";
-
+import { getOneFutsalById } from "../axios";
+import { useParams } from "react-router-dom";
 import {
   setBookDate,
   setBookingSelectedTime,
 } from "../redux/slices/bookingSlice";
 import { useAuth } from "../hooks/useAuth";
+import { useEffect } from "react";
 
 const returnDates = () => {
   const dates = [];
@@ -25,8 +27,19 @@ const returnDates = () => {
 };
 
 const FutsalPage = () => {
+  let { id } = useParams();
   const bookModal = useSelector((state) => state.modal.bookModal);
   useAuth();
+  const [futsal, setFutsal] = useState([]);
+  useEffect(() => {
+    const getFutsal = async () => {
+      const res = await getOneFutsalById({ id: id });
+      if (res.status === 200) {
+        setFutsal(res.data.futsal);
+      }
+    };
+    getFutsal();
+  }, [id]);
 
   const settings = {
     arrows: false,
@@ -76,7 +89,7 @@ const FutsalPage = () => {
           </div>
           <div className="text-white space-y-2">
             <h1 className="text-white text-3xl font-bold">
-              ABC Futsal Pvt. ltd
+              {futsal.futsalName}
             </h1>
             <p className="text-sm lg:w-[600px] opacity-90">
               Futsal is an association football-based game played on a hard
@@ -85,18 +98,18 @@ const FutsalPage = () => {
             </p>
             <div className="flex items-center space-x-1 ">
               <IoLocationSharp className="text-white text-sm" />
-              <p className="text-sm font-bold ">Nadipur, pokhara</p>
+              <p className="text-sm font-bold ">{futsal.address}</p>
             </div>
             <div className="flex items-center space-x-1">
               <IoCall className="text-white text-sm" />
-              <p className="text-sm font-bold">+977 9846168323</p>
+              <p className="text-sm font-bold">{futsal.phoneNumber}</p>
             </div>
             <div>
               <p className="text-sm font-bold">Rs 1600/hr</p>
             </div>
             <div className="text-xs font-bold flex">
-              {[...Array(5)].map((_) => {
-                return <AiFillStar className="text-yellow-500" />;
+              {[...Array(5)].map((_, id) => {
+                return <AiFillStar className="text-yellow-500" key={id} />;
               })}
             </div>
             <button className="seleected">Rate now</button>

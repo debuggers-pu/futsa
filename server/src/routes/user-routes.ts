@@ -12,6 +12,7 @@ const router = Router();
 router.post("/getcustomer", UserController.getCustomer);
 router.post("/getfutsal", UserController.getFutsal);
 
+router.post("/futsal/getfutsaldetail", UserController.getFutsalById);
 router.get("/futsal/getall", UserController.getAllFutsal);
 router.post("/futsal/getbylocation", UserController.getFutsalByLocation);
 
