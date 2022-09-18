@@ -1,0 +1,90 @@
+[
+  {
+    "timeSlots": [
+      {
+        "time": "9:00 AM",
+        "available": false,
+        "booked": false,
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "time": "10:00 AM",
+        "available": false,
+        "booked": true,
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "time": "11:00 AM",
+        "available": true,
+        "booked": false,
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "time": "12:00 PM",
+        "available": true,
+        "booked": false,
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "time": "1:00 PM",
+        "available": true,
+        "booked": false,
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "time": "2:00 PM",
+        "available": true,
+        "booked": false,
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "time": "3:00 PM",
+        "available": true,
+        "booked": false,
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "time": "4:00 PM",
+        "available": true,
+        "booked": false,
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "time": "5:00 PM",
+        "available": true,
+        "booked": false,
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "time": "6:00 PM",
+        "available": true,
+        "booked": false,
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "time": "7:00 PM",
+        "available": true,
+        "booked": false,
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "time": "8:00 PM",
+        "available": true,
+        "booked": false,
+        "selected": false,
+        "disabled": false
+      }
+    ]
+  }
+]

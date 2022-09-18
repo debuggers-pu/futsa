@@ -148,8 +148,15 @@ class AuthController {
   };
 
   futsalSignup = async (req: Request, res: Response) => {
-    const { futsalName, ownerName, address, email, password, phoneNumber } =
-      req.body;
+    const {
+      futsalName,
+      ownerName,
+      address,
+      email,
+      password,
+      phoneNumber,
+      description,
+    } = req.body;
     const files = req.files;
     const image: string[] = [files].map((file: any) =>
       file.map((f: any) => f.path)
@@ -176,6 +183,7 @@ class AuthController {
           address,
           phoneNumber,
           image,
+          description,
         });
         const futsal = await UserServices.addFutsal(_futsal);
         if (futsal) {

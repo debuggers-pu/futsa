@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setBookModal } from "../../redux/slices/modalSlice";
-import Modal from "../shared/Modal";
+import { setBookModal } from "../../../redux/slices/modalSlice";
+import Modal from "../../shared/Modal";
 
 const BookingSteps = () => {
   const dispatch = useDispatch();
@@ -9,7 +9,7 @@ const BookingSteps = () => {
     e.preventDefault();
     dispatch(setBookModal(false));
   }
-  // const booking = useSelector((state) => state.booking.booking);
+  const bookingDetail = useSelector((state) => state.booking.booking);
   const onClickHandler = () => {};
   return (
     <div>
