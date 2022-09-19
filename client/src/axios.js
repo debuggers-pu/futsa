@@ -42,7 +42,6 @@ export const getFutsalDetail = (data) =>
   api.post("user/getfutsal", data, configJ);
 
 // getfutsals
-
 export const getAllFutsals = () => api.get("user/futsal/getall");
 
 export const getOneFutsalById = (data) =>
@@ -51,4 +50,9 @@ export const getOneFutsalById = (data) =>
 export const getFutsalByLocation = (data) =>
   api.post("user/futsal/getbylocation", data, configJ);
 
+// bookings
+export const addBooking = (data) => api.post("book/add-booking", data, configJ);
+
 export default api;
+
+// api/book/add-booking/

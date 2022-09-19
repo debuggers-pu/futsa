@@ -2,7 +2,7 @@ import { returnDates } from "../../../utils/helperFunctions";
 import React, { useState } from "react";
 import TabContent from "./TabContent";
 
-const TabView = () => {
+const TabView = ({ futsalData }) => {
   const [isActive, setIsActive] = useState(0);
   const [selectedDate, setSelectedDate] = useState(returnDates()[0]);
   const activeTab = `after:absolute after:bg-white after:h-[4px] after:w-16 after:justify-center after:flex after:bottom-0 opacity-100`;
@@ -19,7 +19,6 @@ const TabView = () => {
               onClick={() => {
                 setIsActive(index);
                 setSelectedDate(date);
-                s;
               }}
             >
               {date}
@@ -28,7 +27,7 @@ const TabView = () => {
         })}
       </ul>
       <div>
-        <TabContent selectedDate={selectedDate} />
+        <TabContent selectedDate={selectedDate} futsalData={futsalData} />
       </div>
     </div>
   );

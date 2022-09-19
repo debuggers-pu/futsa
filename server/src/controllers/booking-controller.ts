@@ -10,17 +10,21 @@ class BookingController {
         customerId,
         bookingDate,
         bookingTime,
-        bookingDuration,
         bookingPrice,
+        paymentMethod,
+        status,
+        price,
       } = req.body;
 
       const _book = new Booking({
-        futsalId,
         customerId,
-        bookingDate,
+        futsalId,
         bookingTime,
-        bookingDuration,
+        bookingDate,
         bookingPrice,
+        price,
+        status,
+        paymentMethod,
       });
 
       const book = await BookingServices.addBooking(_book);
@@ -30,8 +34,13 @@ class BookingController {
           message: "Booking added successfully.",
           booking: book,
         });
+      } else {
+        res.status(404).json({
+          message: "Can't add the booking.",
+        });
       }
     } catch (error) {
+      console.log(error);
       res.status(500).json({
         message: "Something went wrong.",
         error,

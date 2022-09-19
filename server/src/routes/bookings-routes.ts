@@ -9,6 +9,6 @@ import BookingController from "../controllers/booking-controller";
 
 const router = Router();
 
-router.post("/addBooking", requireAuthentication, BookingController.addBooking);
+router.post("/add-booking", BookingController.addBooking);
 
 export default router;

@@ -5,11 +5,10 @@ const bookingSlice = createSlice({
   initialState: {
     booking: {
       futsalId: "",
+      futsal: "",
       userId: "",
       selectedTime: "",
       date: "",
-      duration: "",
-      bookTime: "",
     },
   },
   reducers: {
@@ -29,8 +28,8 @@ const bookingSlice = createSlice({
     setBookDuration: (state, action) => {
       state.booking.duration = action.payload;
     },
-    setBookTime: (state, action) => {
-      state.booking.bookTime = Date.now();
+    setFutsalDetails: (state, action) => {
+      state.booking.futsal = action.payload;
     },
   },
 });
@@ -43,4 +42,5 @@ export const {
   setBookDate,
   setBookDuration,
   setUserId,
+  setFutsalDetails,
 } = bookingSlice.actions;

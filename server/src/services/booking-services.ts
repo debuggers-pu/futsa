@@ -1,6 +1,10 @@
 class BookingService {
   addBooking = async (data: any) => {
-    return await data.save();
+    try {
+      return await data.save();
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 export default new BookingService();

@@ -101,7 +101,7 @@ const FutsalPage = () => {
         </div>
       </div>
       <section className="mb-4">
-        <TabView />
+        <TabView futsalData={futsal} />
       </section>
       {bookModal ? <BookingSteps /> : null}
     </div>

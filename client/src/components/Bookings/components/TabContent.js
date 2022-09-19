@@ -7,6 +7,7 @@ import {
   setBookDate,
   setUserId,
   setFutsalId,
+  setFutsalDetails,
 } from "../../../redux/slices/bookingSlice";
 
 const available =
@@ -14,7 +15,7 @@ const available =
 const pending = "bg-yellow-400 text-white cursor-pointer opacity-80";
 const booked = "bg-green-500 text-white cursor-pointer opacity-80";
 
-const TabContent = ({ selectedDate }) => {
+const TabContent = ({ selectedDate, futsalData }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const userid = useSelector((state) => state.auth.user.details._id);
@@ -25,6 +26,7 @@ const TabContent = ({ selectedDate }) => {
     dispatch(setBookDate(selectedDate));
     dispatch(setFutsalId(id));
     dispatch(setUserId(userid));
+    dispatch(setFutsalDetails(futsalData));
   }
   return (
     <div className="mx-10 mt-4">
