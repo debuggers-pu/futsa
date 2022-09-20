@@ -10,7 +10,6 @@ const Homepage = () => {
     const getFutsal = async () => {
       const res = await getAllFutsals();
       setFutsals(res.data.futsals);
-      console.log(futsals);
     };
     getFutsal();
 

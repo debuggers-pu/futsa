@@ -52,7 +52,10 @@ export const getFutsalByLocation = (data) =>
 
 // bookings
 export const addBooking = (data) => api.post("book/add-booking", data, configJ);
+export const getBookingByDate = (data) =>
+  api.post("book/get-bookingby-date", data, configJ);
 
 export default api;
 
 // api/book/add-booking/
+// api/book/get-bookingby-date

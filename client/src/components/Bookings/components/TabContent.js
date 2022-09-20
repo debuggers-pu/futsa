@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import TimeSlots from "../../../dummuydata/timeslots.json";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -15,10 +16,26 @@ const available =
 const pending = "bg-yellow-400 text-white cursor-pointer opacity-80";
 const booked = "bg-green-500 text-white cursor-pointer opacity-80";
 
-const TabContent = ({ selectedDate, futsalData }) => {
+const TabContent = ({ selectedDate, futsalData, statusMap }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const userid = useSelector((state) => state.auth.user.details._id);
+
+  useEffect(() => {
+    const updateTimeSlots = () => {
+      TimeSlots[0].timeSlots.map((time) => {
+        Object.keys(statusMap).map((element) => {
+          if (time.time === element) {
+            time.status = statusMap[element];
+          }
+        });
+      });
+    };
+    if (statusMap.length >= 1) {
+      updateTimeSlots();
+    }
+  }, []);
+
   function onClickHandler(item, selectedDate, e) {
     e.preventDefault();
     dispatch(setBookModal());
@@ -52,11 +69,9 @@ const TabContent = ({ selectedDate, futsalData }) => {
           return (
             <div
               key={index}
-              className={`flex items-center justify-center ${
-                item.available ? available : item.booked ? booked : pending
-              }  px-6 py-6 rounded-md text-white cursor-pointer`}
+              className={`flex items-center justify-center ${item.status}  px-6 py-6 rounded-md text-white cursor-pointer`}
               onClick={(e) => {
-                if (item.available) {
+                if (item.status === "available") {
                   onClickHandler(item, selectedDate, e);
                 }
               }}
@@ -70,3 +85,4 @@ const TabContent = ({ selectedDate, futsalData }) => {
   );
 };
 export default TabContent;
+//  item.available ? available : item.booked ? booked : pending

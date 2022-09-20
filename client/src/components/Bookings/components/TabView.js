@@ -1,11 +1,35 @@
 import { returnDates } from "../../../utils/helperFunctions";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TabContent from "./TabContent";
+import { getBookingByDate } from "../../../axios";
 
 const TabView = ({ futsalData }) => {
   const [isActive, setIsActive] = useState(0);
   const [selectedDate, setSelectedDate] = useState(returnDates()[0]);
+  const [statusMap, setStatusMap] = useState({});
+  useEffect(() => {
+    const getBookings = async () => {
+      // api to query the booking on the given futsal and date.
+      const res = await getBookingByDate({
+        futsalId: futsalData._id,
+        bookingDate: selectedDate,
+      });
+      if (res.data.length >= 1) {
+        console.log(res.data);
+        let statusMap = {};
+        res.data.bookings.map((books, index) => {
+          const { bookingTime, status } = books;
+          statusMap[bookingTime] = status;
+        });
+        console.log(statusMap);
+        setStatusMap(statusMap);
+      }
+    };
+    getBookings();
+  }, [selectedDate]);
+
   const activeTab = `after:absolute after:bg-white after:h-[4px] after:w-16 after:justify-center after:flex after:bottom-0 opacity-100`;
+
   return (
     <div>
       <ul className="bg-secondaryDark text-xs text-white flex items-center justify-center space-x-10 py-3 relative">
@@ -27,7 +51,11 @@ const TabView = ({ futsalData }) => {
         })}
       </ul>
       <div>
-        <TabContent selectedDate={selectedDate} futsalData={futsalData} />
+        <TabContent
+          selectedDate={selectedDate}
+          futsalData={futsalData}
+          statusMap={statusMap}
+        />
       </div>
     </div>
   );

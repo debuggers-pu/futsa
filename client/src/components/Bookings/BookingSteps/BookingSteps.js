@@ -130,7 +130,7 @@ const PaymentMethod = () => {
 
       <div className="flex justify-between items-center">
         <p className="font-bold">Total </p>
-        <p>Rs. 1100 </p>
+        <p>{onDiscount ? "Rs. 1100" : "Rs. 1200"} </p>
       </div>
     </div>
   );

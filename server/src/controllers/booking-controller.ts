@@ -47,5 +47,35 @@ class BookingController {
       });
     }
   };
+
+  getBookingsByDate = async (req: Request, res: Response) => {
+    try {
+      const { futsalId, bookingDate } = req.body;
+      const bookings = await BookingServices.getBooking(futsalId, bookingDate);
+      if (bookings) {
+        if (bookings.length > 0) {
+          res.status(200).json({
+            length: bookings.length,
+            bookings,
+          });
+        } else {
+          res.status(200).json({
+            message: "No bookings",
+          });
+        }
+      } else {
+        res.status(500).json({
+          message: "Something went wrong.",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "Something went wrong.",
+        error,
+      });
+    }
+  };
 }
+
 export default new BookingController();
