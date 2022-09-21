@@ -6,7 +6,7 @@ import { getBookingByDate } from "../../../axios";
 const TabView = ({ futsalData }) => {
   const [isActive, setIsActive] = useState(0);
   const [selectedDate, setSelectedDate] = useState(returnDates()[0]);
-  const [statusMap, setStatusMap] = useState({});
+  const [estatusMap, seteStatusMap] = useState({});
   useEffect(() => {
     const getBookings = async () => {
       // api to query the booking on the given futsal and date.
@@ -14,15 +14,16 @@ const TabView = ({ futsalData }) => {
         futsalId: futsalData._id,
         bookingDate: selectedDate,
       });
-      if (res.data.length >= 1) {
-        console.log(res.data);
+      console.log(res.data);
+      if (res.data.bookings) {
         let statusMap = {};
         res.data.bookings.map((books, index) => {
           const { bookingTime, status } = books;
           statusMap[bookingTime] = status;
         });
-        console.log(statusMap);
-        setStatusMap(statusMap);
+        seteStatusMap(statusMap);
+      } else {
+        seteStatusMap({});
       }
     };
     getBookings();
@@ -54,7 +55,7 @@ const TabView = ({ futsalData }) => {
         <TabContent
           selectedDate={selectedDate}
           futsalData={futsalData}
-          statusMap={statusMap}
+          statusMap={estatusMap}
         />
       </div>
     </div>
