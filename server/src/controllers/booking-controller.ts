@@ -77,18 +77,37 @@ class BookingController {
     }
   };
 
-  // getBookingsByFutsal = async (req: Request, res: Response) => {
-  //   try {
-  //     const { futsalId } = req.body;
-  //     const bookings = await BookingServices.
-  //   } catch (error) {
-  //     console.log(error);
-  //     res.status(500).json({
-  //       message: "Something went wrong.",
-  //       error,
-  //     });
-  //   }
-  // };
+  getBookingsByFutsal = async (req: Request, res: Response) => {
+    try {
+      const { futsalId, status } = req.body;
+      const bookings = await BookingServices.getBookingByFutsalId(
+        futsalId,
+        status
+      );
+      if (bookings) {
+        if (bookings.length > 0) {
+          res.status(200).json({
+            length: bookings.length,
+            bookings,
+          });
+        } else {
+          res.status(200).json({
+            message: "No bookings",
+          });
+        }
+      } else {
+        res.status(500).json({
+          message: "Something went wrong.",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "Something went wrong.",
+        error,
+      });
+    }
+  };
 }
 
 export default new BookingController();

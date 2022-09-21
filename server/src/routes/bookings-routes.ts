@@ -11,5 +11,6 @@ const router = Router();
 
 router.post("/add-booking", BookingController.addBooking);
 router.post("/get-bookingby-date", BookingController.getBookingsByDate);
+router.post("/get-bookingby-futsal", BookingController.getBookingsByFutsal);
 
 export default router;

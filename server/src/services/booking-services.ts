@@ -23,6 +23,19 @@ class BookingService {
       return futsalBookings;
     }
   };
+
+  getBookingByFutsalId = async (futsalId: any, status: string) => {
+    const futsalBookings = await Booking.find()
+      .where({
+        futsalId: new ObjectId(futsalId),
+        status: status,
+      })
+      .populate("customerId");
+
+    if (futsalBookings) {
+      return futsalBookings;
+    }
+  };
 }
 
 export default new BookingService();
