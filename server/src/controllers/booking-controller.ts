@@ -76,6 +76,19 @@ class BookingController {
       });
     }
   };
+
+  // getBookingsByFutsal = async (req: Request, res: Response) => {
+  //   try {
+  //     const { futsalId } = req.body;
+  //     const bookings = await BookingServices.
+  //   } catch (error) {
+  //     console.log(error);
+  //     res.status(500).json({
+  //       message: "Something went wrong.",
+  //       error,
+  //     });
+  //   }
+  // };
 }
 
 export default new BookingController();
