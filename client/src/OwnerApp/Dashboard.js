@@ -18,6 +18,7 @@ import {
   setUser,
   setUserDetails,
 } from "../redux/slices/authSlice";
+import TabView from "../components/Bookings/components/TabView";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.auth.user);
@@ -109,6 +110,7 @@ const Header = () => {
 };
 
 const DashboardHome = () => {
+  const futsalData = useSelector((state) => state.auth.user.details);
   return (
     <div className="p-4">
       <h1 className="font-bold text-2xl">Quick Stats</h1>
@@ -120,7 +122,7 @@ const DashboardHome = () => {
 
       {/* bookings */}
       <div className="mt-4">
-        <TabView />
+        <TabView futsalData={futsalData} />
       </div>
     </div>
   );
@@ -135,180 +137,4 @@ const StatBoxes = ({ title, value }) => {
       </div>
     </div>
   );
-};
-
-const TabView = () => {
-  const [isActive, setIsActive] = useState(0);
-  const [selectedDate, setSelectedDate] = useState(returnDates()[0]);
-  const activeTab = `after:absolute after:bg-white after:h-[4px] after:w-16 after:justify-center after:flex after:bottom-0 opacity-100`;
-  return (
-    <div>
-      <ul className="bg-secondaryDark text-xs text-white flex items-center justify-center space-x-10 py-3 relative">
-        {returnDates().map((date, index) => {
-          return (
-            <li
-              key={index}
-              className={`opacity-80 hover:opacity-100 cursor-pointer text-center w-16 ${
-                isActive === index ? activeTab : ""
-              }`}
-              onClick={() => {
-                setIsActive(index);
-                setSelectedDate(date);
-              }}
-            >
-              {date}
-            </li>
-          );
-        })}
-      </ul>
-      <div>
-        <TabContent selectedDate={selectedDate} />
-      </div>
-    </div>
-  );
-};
-// will be extracted from the database.
-const timeSlots = [
-  {
-    time: "9:00 AM",
-    available: false,
-    booked: false,
-    selected: false,
-    disabled: false,
-  },
-  {
-    time: "10:00 AM",
-    available: false,
-    booked: true,
-    selected: false,
-    disabled: false,
-  },
-  {
-    time: "11:00 AM",
-    available: true,
-    booked: false,
-    selected: false,
-    disabled: false,
-  },
-  {
-    time: "12:00 PM",
-    available: true,
-    booked: false,
-    selected: false,
-    disabled: false,
-  },
-  {
-    time: "1:00 PM",
-    available: true,
-    booked: false,
-    selected: false,
-    disabled: false,
-  },
-  {
-    time: "2:00 PM",
-    available: true,
-    booked: false,
-    selected: false,
-    disabled: false,
-  },
-  {
-    time: "3:00 PM",
-    available: true,
-    booked: false,
-    selected: false,
-    disabled: false,
-  },
-  {
-    time: "4:00 PM",
-    available: true,
-    booked: false,
-    selected: false,
-    disabled: false,
-  },
-  {
-    time: "5:00 PM",
-    available: true,
-    booked: false,
-    selected: false,
-    disabled: false,
-  },
-  {
-    time: "6:00 PM",
-    available: true,
-    booked: false,
-    selected: false,
-    disabled: false,
-  },
-  {
-    time: "7:00 PM",
-    available: true,
-    booked: false,
-    selected: false,
-    disabled: false,
-  },
-  {
-    time: "8:00 PM",
-    available: true,
-    booked: false,
-    selected: false,
-    disabled: false,
-  },
-];
-const available =
-  "bg-secondaryDark text-white cursor-pointer opacity-100 hover:opacity-80";
-const pending = "bg-yellow-400 text-white cursor-pointer opacity-80";
-const booked = "bg-green-500 text-white cursor-pointer opacity-80";
-
-const TabContent = ({ selectedDate }) => {
-  return (
-    <div className="mt-4">
-      <h1 className="font-bold text-xl text-center">
-        Board for {selectedDate}, 2022
-      </h1>
-      <div className="mt-2">
-        <div className="flex item-center justify-center space-x-3">
-          <div className="bg-secondaryDark text-white text-xs px-3 py-1 font-bold rounded-sm">
-            Available
-          </div>
-          <div className="bg-green-500 text-white text-xs px-3 py-1 font-bold rounded-sm">
-            Booked
-          </div>
-          <div className="bg-yellow-400 text-white text-xs font-bold px-3 py-1 rounded-sm">
-            Pending
-          </div>
-        </div>
-      </div>
-      <div className="grid grid-cols-4 gap-2 mt-4">
-        {timeSlots.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className={`flex items-center justify-center ${
-                item.available ? available : item.booked ? booked : pending
-              }  px-6 py-6 rounded-md text-white cursor-pointer`}
-              onClick={(e) => {
-                if (item.available) {
-                  //   onClickHandler(item, selectedDate, e);
-                }
-              }}
-            >
-              <p className="text-xl font-bold">{item.time}</p>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
-// helper function
-const returnDates = () => {
-  const dates = [];
-  const start = moment();
-  const end = moment().add(7, "days");
-  while (start.isBefore(end)) {
-    dates.push(start.format("MMM DD"));
-    start.add(1, "days");
-  }
-  return dates;
 };

@@ -16,25 +16,14 @@ const available =
 const pending = "bg-yellow-400 text-white cursor-pointer opacity-80";
 const booked = "bg-green-500 text-white cursor-pointer opacity-80";
 
-const TabContent = ({ selectedDate, futsalData, statusMap }) => {
+const TabContent = ({ selectedDate, futsalData, timeSlot }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const userid = useSelector((state) => state.auth.user.details._id);
-
+  const [times, setTimes] = useState([]);
   useEffect(() => {
-    const updateTimeSlots = () => {
-      TimeSlots[0].timeSlots.map((time) => {
-        Object.keys(statusMap).map((element) => {
-          if (time.time === element) {
-            time.status = statusMap[element];
-          }
-        });
-      });
-    };
-    if (statusMap.length >= 1) {
-      updateTimeSlots();
-    }
-  }, []);
+    setTimes(timeSlot);
+  }, [selectedDate]);
 
   function onClickHandler(item, selectedDate, e) {
     e.preventDefault();
@@ -65,7 +54,7 @@ const TabContent = ({ selectedDate, futsalData, statusMap }) => {
         </div>
       </div>
       <div className="grid grid-cols-4 gap-10 mt-4">
-        {TimeSlots[0].timeSlots.map((item, index) => {
+        {times.map((item, index) => {
           return (
             <div
               key={index}
