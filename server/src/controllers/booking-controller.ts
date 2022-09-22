@@ -79,11 +79,8 @@ class BookingController {
 
   getBookingsByFutsal = async (req: Request, res: Response) => {
     try {
-      const { futsalId, status } = req.body;
-      const bookings = await BookingServices.getBookingByFutsalId(
-        futsalId,
-        status
-      );
+      const { futsalId } = req.body;
+      const bookings = await BookingServices.getBookingByFutsalId(futsalId);
       if (bookings) {
         if (bookings.length > 0) {
           res.status(200).json({
@@ -98,6 +95,28 @@ class BookingController {
       } else {
         res.status(500).json({
           message: "Something went wrong.",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "Something went wrong.",
+        error,
+      });
+    }
+  };
+
+  updateBookingStatus = async (req: Request, res: Response) => {
+    const { bookId, status } = req.body;
+    try {
+      const updateBookingStatus = await BookingServices.updateBookingStatus(
+        bookId,
+        status
+      );
+      if (updateBookingStatus) {
+        res.status(200).json({
+          message: "Status updated Successfully",
+          updateBookingStatus,
         });
       }
     } catch (error) {

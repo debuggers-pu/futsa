@@ -31,6 +31,7 @@ const CustomerSchema = new Schema<ICustomer>(
     phoneNumber: {
       type: Number,
     },
+
     image: {
       type: String,
     },

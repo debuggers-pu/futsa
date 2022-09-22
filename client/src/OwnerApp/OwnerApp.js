@@ -9,7 +9,7 @@ const OwnerApp = () => {
   const isAuthenticated = useSelector((state) => state.auth.isauthenticated);
   useEffect(() => {});
   return (
-    <div>
+    <div className="h-screen">
       <Routes>
         <Route path="/" element={<OwnerLogin />} />
         <Route path="/login" element={<OwnerLogin />} />

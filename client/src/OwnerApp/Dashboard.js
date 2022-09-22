@@ -8,7 +8,6 @@ import {
 import { MdOutlineSpaceDashboard, MdNotifications } from "react-icons/md";
 import { BiFootball, BiConversation } from "react-icons/bi";
 import Searchbox from "../components/Searchbox";
-import moment from "moment";
 import BookingsDetails from "./pages/BookingsDetails";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,10 +18,12 @@ import {
   setUserDetails,
 } from "../redux/slices/authSlice";
 import TabView from "../components/Bookings/components/TabView";
+import BookingsHistory from "./pages/BookingsHistory";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const [active, setActive] = useState("home");
   useEffect(() => {
     if (user.info.id && user.info.role === "futsal") {
       const getFutsal = async () => {
@@ -33,7 +34,7 @@ const Dashboard = () => {
     }
   }, [user.info.id]);
   return (
-    <div className="flex h-screen w-screen">
+    <div className="flex h-full w-full">
       {/* left panel */}
       <div className="bg-backgroundDark h-full w-[250px] flex flex-col  text-white pt-4 px-2">
         <h1 className="text-xl font-bold text-center mb-6">FUTSA</h1>
@@ -41,38 +42,56 @@ const Dashboard = () => {
         <div className="mt-2">
           <IconButton
             title={"Dashboard"}
-            isselected
-            path={`owner/dashboard/${user.info.id}`}
+            isselected={active === "home" ? true : false}
+            path={`owner/dashboard/${user.info.id}/`}
+            onClick={() => setActive("home")}
           >
             <MdOutlineSpaceDashboard className="h-5 w-5 " />
           </IconButton>
           <IconButton
-            title={"Bookings"}
+            title={"Booking Requests"}
             path={`owner/dashboard/${user.info.id}/bookings`}
+            isselected={active === "req" ? true : false}
+            onClick={() => setActive("req")}
           >
-            <BiFootball className="h-5 w-5 " />
+            <BiFootball className="h-5 w-5" />
           </IconButton>
-          <IconButton title={"History"} path="owner/dashboard/bookings">
+          <IconButton
+            title={"History"}
+            path={`owner/dashboard/${user.info.id}/history`}
+            isselected={active === "his" ? true : false}
+            onClick={() => setActive("his")}
+          >
             <AiOutlineHistory className="h-5 w-5 " />
           </IconButton>
-          <IconButton title={"Teams"} path="owner/dashboard/bookings">
+          <IconButton
+            title={"Teams"}
+            path={`owner/dashboard/${user.info.id}/history`}
+          >
             <AiOutlineTeam className="h-5 w-5" />
           </IconButton>
-          <IconButton title={"Conversation"} path="owner/dashboard/bookings">
+          <IconButton
+            title={"Conversation"}
+            path={`owner/dashboard/${user.info.id}/history`}
+          >
             <BiConversation className="h-5 w-5 " />
           </IconButton>
-          <IconButton title={"Help"} path="owner/dashboard/bookings">
+          <IconButton
+            title={"Help"}
+            path={`owner/dashboard/${user.info.id}/history`}
+          >
             <AiFillQuestionCircle className="h-5 w-5 " />
           </IconButton>
         </div>
       </div>
       {/* right panel */}
-      <div className="h-full w-full">
+      <div className="h-full w-full flex flex-col">
         <Header />
         <div className="border-b-[1px]"></div>
         <Routes>
           <Route path="/" element={<DashboardHome />} />
           <Route path="/bookings" element={<BookingsDetails />} />
+          <Route path="/history" element={<BookingsHistory />} />
         </Routes>
       </div>
     </div>
@@ -82,6 +101,7 @@ const Dashboard = () => {
 export default Dashboard;
 
 const Header = () => {
+  const futsalData = useSelector((state) => state.auth.user.details);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onSignOut = () => {
@@ -91,20 +111,25 @@ const Header = () => {
     navigate("/owner/login");
   };
   return (
-    <div className="flex space-x-4 items-center justify-end p-4">
+    <div className="flex space-x-4 items-center justify-between p-4 ">
+      <div>
+        <h1 className="font-bold">Welcome,</h1>
+        <p className="text-sm"> {futsalData.futsalName}</p>
+      </div>
       <Searchbox />
-      <MdNotifications className="h-6 w-6 text-primaryColor p-1 rounded-md bg-white hover-effect" />
+      <div className="flex items-center space-x-4">
+        <MdNotifications className="h-6 w-6 text-primaryColor p-1 rounded-md bg-white hover-effect" />
+        <img
+          src={"/images/avatar.png"}
+          alt="image"
+          loading="lazy"
+          className="h-6 w-6"
+        />
 
-      <img
-        src={"/images/avatar.png"}
-        alt="image"
-        loading="lazy"
-        className="h-6 w-6"
-      />
-
-      <button className="seleected" onClick={onSignOut}>
-        Logout
-      </button>
+        <button className="seleected" onClick={onSignOut}>
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
@@ -112,7 +137,7 @@ const Header = () => {
 const DashboardHome = () => {
   const futsalData = useSelector((state) => state.auth.user.details);
   return (
-    <div className="p-4">
+    <div className="p-4 h-full overflow-auto">
       <h1 className="font-bold text-2xl">Quick Stats</h1>
       <div className="flex space-x-4">
         <StatBoxes title={"Total Booking"} value={"400"} />

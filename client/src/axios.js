@@ -55,7 +55,16 @@ export const addBooking = (data) => api.post("book/add-booking", data, configJ);
 export const getBookingByDate = (data) =>
   api.post("book/get-bookingby-date", data, configJ);
 
+export const getBookingsByFutsal = (data) =>
+  api.post("book/get-bookingby-futsal", data, configJ);
+
+export const updateBookingStatus = (data) => {
+  api.post("book/update-bookingstatus", data, configJ);
+};
+
 export default api;
 
 // api/book/add-booking/
 // api/book/get-bookingby-date
+// api/book/get-bookingby-futsal
+// api/book/update-bookingstatus

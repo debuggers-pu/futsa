@@ -18,22 +18,33 @@ class BookingService {
         futsalId: new ObjectId(futsalId),
         bookingDate: bookingDate,
       })
-      .populate("customerId");
+      .populate("customerId futsalId");
     if (futsalBookings) {
       return futsalBookings;
     }
   };
 
-  getBookingByFutsalId = async (futsalId: any, status: string) => {
+  getBookingByFutsalId = async (futsalId: any) => {
     const futsalBookings = await Booking.find()
       .where({
         futsalId: new ObjectId(futsalId),
-        status: status,
       })
-      .populate("customerId");
+      .populate("customerId")
+      .sort({ updatedAt: -1 });
 
     if (futsalBookings) {
       return futsalBookings;
+    }
+  };
+
+  updateBookingStatus = async (bookingId: any, status: any) => {
+    const updated = await Booking.findOneAndUpdate(
+      { _id: bookingId },
+      { status: status },
+      { upsert: true, useFindAndModify: false }
+    );
+    if (updated) {
+      return updated;
     }
   };
 }

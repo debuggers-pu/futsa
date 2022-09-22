@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import TimeSlots from "../../../dummuydata/timeslots.json";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setBookModal } from "../../../redux/slices/modalSlice";
@@ -15,6 +14,7 @@ const available =
   "bg-secondaryDark text-white cursor-pointer opacity-100 hover:opacity-80";
 const pending = "bg-yellow-400 text-white cursor-pointer opacity-80";
 const booked = "bg-green-500 text-white cursor-pointer opacity-80";
+const unavailable = "bg-secondaryDark text-white cursor-pointer opacity-50";
 
 const TabContent = ({ selectedDate, futsalData, timeSlot }) => {
   const dispatch = useDispatch();
