@@ -89,7 +89,7 @@ const FutsalPage = () => {
               <p className="text-sm font-bold">{futsal.phoneNumber}</p>
             </div>
             <div>
-              <p className="text-sm font-bold">Rs 1600/hr</p>
+              <p className="text-sm font-bold">Rs 1200/hr</p>
             </div>
             <div className="text-xs font-bold flex">
               {[...Array(5)].map((_, id) => {

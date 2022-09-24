@@ -38,7 +38,7 @@ function DropDown({ Items }) {
                   setDropdown(false);
                   navigate({
                     pathname: `/search`,
-                    search: `?location=${item.toLowerCase()}`,
+                    search: `?location=${item}`,
                   });
                 }}
               >

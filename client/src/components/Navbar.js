@@ -56,7 +56,7 @@ const Navbar = () => {
           </NavLink>
           {/* location */}
           <div>
-            <DropDown Items={["Pokhara", "Kathmandu", "Chitwan", "Others"]} />
+            <DropDown Items={["Pokhara", "Kathmandu", "Chitwan"]} />
           </div>
           {isAuthenticated ? (
             <img

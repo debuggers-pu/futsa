@@ -25,7 +25,7 @@ const Searchbox = ({ isCustomer }) => {
       <input
         className="w-full outline-none text-xs"
         type="text"
-        placeholder="Search Futsals by name or location"
+        placeholder="Search Futsal by name"
         onChange={onChange}
       />
     </div>

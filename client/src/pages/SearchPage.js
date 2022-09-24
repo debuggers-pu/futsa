@@ -12,7 +12,7 @@ const SearchPage = () => {
   useEffect(() => {
     const getFutsal = async () => {
       const futsal = await axios.get(
-        `http://localhost:8000/api/book/search/${key}`
+        `http://localhost:8000/api/book/search/${key.split(" ").join("")}`
       );
       if (key) {
         setFutsals(futsal.data.futsal);
@@ -25,22 +25,19 @@ const SearchPage = () => {
       const futsal = await axios.get(
         `http://localhost:8000/api/book/search/${locationKey}`
       );
-      if (key) {
+      if (locationKey) {
         setFutsals(futsal.data.futsal);
         console.log(futsal);
       } else {
         console.log("Not found");
       }
     };
-    if (key) {
-      getFutsal();
-    } else {
-      getFutsalByLocation();
-    }
+    getFutsal();
+    getFutsalByLocation();
   }, [key, locationKey]);
   return (
     <div>
-      <p className="text-sm font-bold m-4">Search Results</p>
+      <p className="text-sm font-bold m-4">Search Results : {key}</p>
       <div className="mx-10 grid grid-cols-2 gap-4">
         {/* rightside */}
         {futsals.map((item, id) => {

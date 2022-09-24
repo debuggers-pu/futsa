@@ -76,9 +76,7 @@ const BookingSteps = () => {
           </button>
           {}
           <button
-            className={`seleected ml-4 w-full hover:opacity-80 ${
-              step === 2 ? "opacity-50 hover:opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`seleected ml-4 w-full hover:opacity-80`}
             onClick={onNextHandler}
           >
             {step === 2 ? "Submit" : "Next"}
