@@ -14,7 +14,7 @@ const Header = () => {
         </div>
         {/* Searchbox */}
         <div>
-          <Searchbox />
+          <Searchbox isCustomer={true} />
         </div>
         {/* notificationicon */}
         <MdNotifications className="h-8 w-8 bg-blue-300 text-white p-2" />

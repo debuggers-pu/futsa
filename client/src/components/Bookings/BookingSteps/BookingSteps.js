@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setBookModal } from "../../../redux/slices/modalSlice";
+import {
+  setBookModal,
+  setProfileModal,
+} from "../../../redux/slices/modalSlice";
 import Modal from "../../shared/Modal";
 import InputField from "../../shared/InputField";
 import { addBooking } from "../../../axios";
 import toast from "react-hot-toast";
+import StripeCheckout from "react-stripe-checkout";
+import { MdPayment } from "react-icons/md";
 
 const BookingSteps = () => {
   const dispatch = useDispatch();
@@ -14,18 +19,26 @@ const BookingSteps = () => {
     dispatch(setBookModal(false));
   }
   const [step, setStep] = useState(0);
+  const [showPayment, setShowPayment] = useState(true);
   const Steps = {
     0: <Summary />,
     1: <PaymentMethod />,
+    2: <Paynow show={showPayment} />,
   };
 
   const steps = Steps[step];
   const onNextHandler = async () => {
-    if (step !== 1) {
+    if (step === 0) {
       setStep(step + 1);
       return;
     }
+
     if (step === 1) {
+      setStep(step + 1);
+    }
+
+    if (step === 2) {
+      setShowPayment(false);
       const _book = {
         customerId: bookingDetail.userId,
         futsalId: bookingDetail.futsal._id,
@@ -37,6 +50,7 @@ const BookingSteps = () => {
         if (res) {
           toast.success("Booking Successful.");
           dispatch(setBookModal(false));
+          dispatch(setProfileModal(true));
         }
       } catch (error) {
         toast.error(error.response.data.message);
@@ -60,11 +74,14 @@ const BookingSteps = () => {
           >
             Back
           </button>
+          {}
           <button
-            className="seleected ml-4 w-full hover:opacity-80"
+            className={`seleected ml-4 w-full hover:opacity-80 ${
+              step === 2 ? "opacity-50 hover:opacity-50 cursor-not-allowed" : ""
+            }`}
             onClick={onNextHandler}
           >
-            {step === 1 ? "Submit" : "Next"}
+            {step === 2 ? "Submit" : "Next"}
           </button>
         </div>
       </Modal>
@@ -133,5 +150,52 @@ const PaymentMethod = () => {
         <p>{onDiscount ? "Rs. 1100" : "Rs. 1200"} </p>
       </div>
     </div>
+  );
+};
+
+const Paynow = ({ show }) => {
+  const bookingDetail = useSelector((state) => state.booking.booking);
+  const amount = 12;
+  const makePayment = async (token) => {
+    const body = {
+      token,
+      amount,
+      postid: bookingDetail.futsalId,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    return await fetch(`http://localhost:5000/api/payment`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        console.log("RESPONSE ", response);
+
+        const { status } = response;
+        console.log("STATUS ", status);
+      })
+      .catch((error) => console.log(error));
+  };
+  return (
+    <>
+      <Summary />
+      {show && (
+        <StripeCheckout
+          stripeKey="pk_test_51LkrgoSFgx4gzLZVXoWjL4ZKFQFC8GeMkvZaaBY1wne0PhCBBuTLjxmBr8AckotVKbCjktlUgU4WhOVxuuJHmjPi00gr2KEpKC"
+          token={makePayment}
+          name="Paynow"
+          amount={amount * 100}
+        >
+          <button className="bg-blue-400 px-4 py-2 text-sm rounded-sm text-white font-bold mt-4 hover:opacity-70 flex items-center">
+            Paynow
+            <span>
+              <MdPayment className="ml-2" />
+            </span>
+          </button>
+        </StripeCheckout>
+      )}
+    </>
   );
 };

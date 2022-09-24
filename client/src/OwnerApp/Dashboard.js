@@ -116,7 +116,7 @@ const Header = () => {
         <h1 className="font-bold">Welcome,</h1>
         <p className="text-sm"> {futsalData.futsalName}</p>
       </div>
-      <Searchbox />
+      {/* <Searchbox /> */}
       <div className="flex items-center space-x-4">
         <MdNotifications className="h-6 w-6 text-primaryColor p-1 rounded-md bg-white hover-effect" />
         <img

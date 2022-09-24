@@ -37,14 +37,34 @@ class BookingService {
     }
   };
 
+  getBookingByUserId = async (userId: any) => {
+    const userBookings = await Booking.find()
+      .where({
+        customerId: userId,
+      })
+      .populate("futsalId")
+      .sort({ updatedAt: -1 });
+
+    if (userBookings) {
+      return userBookings;
+    }
+  };
+
   updateBookingStatus = async (bookingId: any, status: any) => {
     const updated = await Booking.findOneAndUpdate(
       { _id: bookingId },
       { status: status },
-      { upsert: true, useFindAndModify: false }
+      { upsert: true, useFindAndModify: false, new: true }
     );
     if (updated) {
       return updated;
+    }
+  };
+
+  cancelBooking = async (bookingId: any) => {
+    const res = await Booking.findByIdAndDelete(bookingId);
+    if (res) {
+      return res;
     }
   };
 }

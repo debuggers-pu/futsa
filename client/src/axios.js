@@ -54,12 +54,15 @@ export const getFutsalByLocation = (data) =>
 export const addBooking = (data) => api.post("book/add-booking", data, configJ);
 export const getBookingByDate = (data) =>
   api.post("book/get-bookingby-date", data, configJ);
-
 export const getBookingsByFutsal = (data) =>
   api.post("book/get-bookingby-futsal", data, configJ);
-
+export const getBookingsByUser = (data) =>
+  api.post("book/get-bookingby-user", data, configJ);
 export const updateBookingStatus = (data) => {
-  api.post("book/update-bookingstatus", data, configJ);
+  api.put("book/update-bookingstatus", data, configJ);
+};
+export const removeBooking = (data) => {
+  api.post("book/remove-booking", data, configJ);
 };
 
 export default api;
@@ -68,3 +71,4 @@ export default api;
 // api/book/get-bookingby-date
 // api/book/get-bookingby-futsal
 // api/book/update-bookingstatus
+// api/book/remove-booking

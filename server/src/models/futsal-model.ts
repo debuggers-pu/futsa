@@ -3,9 +3,10 @@ import { Schema, model, Model } from "mongoose";
 interface Ifutsal {
   userId: Schema.Types.ObjectId;
   futsalName: string;
+  slug: string;
   ownerName: string;
   address: string;
-  phoneNumber: number;
+  phoneNumber: string;
   image: string[];
   description: string;
 }
@@ -23,6 +24,11 @@ const FutsalSchema = new Schema<Ifutsal>(
       min: 4,
       max: 30,
     },
+    slug: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     ownerName: {
       type: String,
       required: true,
@@ -31,7 +37,7 @@ const FutsalSchema = new Schema<Ifutsal>(
       max: 20,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
     },
     address: {
       type: String,

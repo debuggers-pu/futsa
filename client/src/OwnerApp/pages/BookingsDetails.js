@@ -25,7 +25,9 @@ const BookingsDetails = () => {
           return (
             <BookingReq
               id={books._id}
-              fullName={books.customerId.firstName + books.customerId.lastName}
+              fullName={
+                books.customerId.firstName + " " + books.customerId.lastName
+              }
               image={books.customerId.image.split("\\")[1]}
               phoneNumber={books.customerId.phoneNumber}
               bookedTime={books.createdAt}

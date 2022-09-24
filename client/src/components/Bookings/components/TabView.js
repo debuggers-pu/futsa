@@ -2,12 +2,13 @@ import { returnDates } from "../../../utils/helperFunctions";
 import React, { useState, useEffect } from "react";
 import TabContent from "./TabContent";
 import { getBookingByDate } from "../../../axios";
+import moment from "moment";
 // import TimeSlots from "../../../dummuydata/timeslots.json";
 
 const TabView = ({ futsalData }) => {
   const [isActive, setIsActive] = useState(0);
   const [selectedDate, setSelectedDate] = useState(returnDates()[0]);
-  // const [estatusMap, seteStatusMap] = useState({});
+
   const initialState = [
     {
       time: "9:00 AM",
@@ -84,6 +85,12 @@ const TabView = ({ futsalData }) => {
               } else {
                 setTimeSlot(initialState);
               }
+              // if (
+              //   moment(Date(Date.now())).format("h:mm a") >
+              //   time.time.split(" ")[0]
+              // ) {
+              //   statusMap[time] = "unavailable";
+              // }
             });
           });
           return updateTimeSlots;

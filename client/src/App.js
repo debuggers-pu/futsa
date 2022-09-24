@@ -17,9 +17,12 @@ import OwnerApp from "./OwnerApp/OwnerApp";
 import { useEffect } from "react";
 import { getUserDetail, getFutsalDetail } from "./axios";
 import { setUserDetails } from "./redux/slices/authSlice";
+import Userbookings from "./components/Userbookings";
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const authModal = useSelector((state) => state.modal.authModal);
+  const userRole = useSelector((state) => state.auth.role);
+  const profileModal = useSelector((state) => state.modal.profileModal);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
@@ -43,7 +46,7 @@ function App() {
           className: "font-bold text-sm",
         }}
       />
-      {user.details.role === "customer" || user.info.role === "customer" ? (
+      {userRole === "customer" ? (
         <div>
           <Navbar />
           <SubNavbar />
@@ -57,6 +60,7 @@ function App() {
         <Route path="/futsal/:id" element={<FutsalPage />} />
         <Route path="/owner/*" element={<OwnerApp />} />
       </Routes>
+      {profileModal ? <Userbookings /> : ""}
     </div>
   );
 }

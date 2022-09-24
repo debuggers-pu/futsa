@@ -178,6 +178,7 @@ class AuthController {
       if (user) {
         const _futsal = new Futsal({
           userId: user._id,
+          slug: futsalName.toLowerCase().split(" ").join(""),
           futsalName,
           ownerName,
           address,

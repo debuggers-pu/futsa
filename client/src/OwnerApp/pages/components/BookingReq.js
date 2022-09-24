@@ -2,8 +2,8 @@ import { ImLocation } from "react-icons/im";
 import { IoTimeSharp } from "react-icons/io5";
 import moment from "moment";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { updateBookingStatus } from "../../../axios";
+import { useNavigate, useParams } from "react-router-dom";
+import { removeBooking, updateBookingStatus } from "../../../axios";
 
 const BookingReq = ({
   id,
@@ -18,15 +18,19 @@ const BookingReq = ({
   updatedAt,
 }) => {
   const navigate = useNavigate();
+  const { id: fid } = useParams();
   const onConfirm = async (e) => {
     e.preventDefault();
-    const res = await updateBookingStatus({ bookId: id, status: "booked" });
-    console.log(res.message);
-    if (res) {
-      toast.success(res.data.message);
-    }
+    updateBookingStatus({ bookId: id, status: "booked" });
+    toast.success("Booking has been confirmed");
+    navigate(`/owner/dashboard/${fid}/history`);
   };
-  const onCancel = () => {};
+  const onCancel = async (e) => {
+    e.preventDefault();
+    removeBooking({ bookId: id });
+    toast.success(`You cancelled the booking.`);
+    navigate(`/owner/dashboard/${fid}/`);
+  };
 
   return (
     <div className="border-[1px] rounded-md shadow-sm mx-6 mt-4 px-2 py-2 hover:shadow-lg">
