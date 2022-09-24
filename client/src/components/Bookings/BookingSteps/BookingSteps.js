@@ -158,12 +158,12 @@ const Paynow = ({ show }) => {
     const body = {
       token,
       amount,
-      postid: bookingDetail.futsalId,
+      bookId: bookingDetail.futsalId,
     };
     const headers = {
       "Content-Type": "application/json",
     };
-    return await fetch(`http://localhost:5000/api/payment`, {
+    return fetch(`http://localhost:8000/api/payment`, {
       method: "POST",
       headers,
       body: JSON.stringify(body),
@@ -181,7 +181,7 @@ const Paynow = ({ show }) => {
       <Summary />
       {show && (
         <StripeCheckout
-          stripeKey="pk_test_51LkrgoSFgx4gzLZVXoWjL4ZKFQFC8GeMkvZaaBY1wne0PhCBBuTLjxmBr8AckotVKbCjktlUgU4WhOVxuuJHmjPi00gr2KEpKC"
+          stripeKey="pk_test_51LkplHClMuxIph6nBNLFwd1ocWAKDpFS61mXEH2oPd61SRHQ5iakVbug9Ihg0InZXKsVp1SAFyrHSiKxRQ9UDRum00rLdQH36O"
           token={makePayment}
           name="Paynow"
           amount={amount * 100}
