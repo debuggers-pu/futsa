@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  api:
+    depends_on:
+      - mongodb
+    build: ./server
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server:/app-server
+      - /app-server/node_modules
+
+  ui:
+    depends_on:
+      - api
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app-client
+      - /app-client/node_modules
+    tty: true
+
+  mongodb:
+    image: mongo:5.0.2
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
