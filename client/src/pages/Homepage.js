@@ -3,22 +3,42 @@ import Banner from "../components/shared/Banner";
 import { AiOutlineRight } from "react-icons/ai";
 import FutsalList from "../components/FutsalList";
 import { getAllFutsals } from "../axios";
-
+import { useGeolocated } from "react-geolocated";
+import Map from "../components/Map/Map";
 const Homepage = () => {
   const [futsals, setFutsals] = useState([]);
-  useEffect(() => {
-    const getFutsal = async () => {
-      const res = await getAllFutsals();
-      setFutsals(res.data.futsals);
-    };
-    getFutsal();
+  // const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+  //   useGeolocated({
+  //     positionOptions: {
+  //       enableHighAccuracy: false,
+  //     },
+  //     userDecisionTimeout: 5000,
+  //   });
+  // const coordinates = {
+  //   lat: 28.237988,
+  //   lng: 83.995594,
+  // };
+  const coordinates = {
+    lat: 12.345,
+    lng: 12.467,
+  };
 
-    return () => {};
+  const getFutsal = async () => {
+    const res = await getAllFutsals();
+    setFutsals(res.data.futsals);
+  };
+  useEffect(() => {
+    getFutsal();
   }, []);
+
   return (
     <div>
       <Banner />
       <div className="mt-4">
+        <div className="h-[500px] m-4 mt-8">
+          {/* Leaflet map */}
+          <Map lat={coordinates.lat} lng={coordinates.lng} />
+        </div>
         <div className="flex justify-between mx-10">
           <h1 className="font-bold text-xl">Recommended Futsals</h1>
           <div className="flex items-center">

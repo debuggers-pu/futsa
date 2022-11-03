@@ -29,7 +29,7 @@ const Signup = ({ onClick }) => {
         credentials.lastName
       ) {
         const res = await signupUser(credentials);
-        if (res.status === 200) {
+        if (res) {
           console.log("success");
           dispatch(setAuthModal(false));
           dispatch(setAuthenticated(true));

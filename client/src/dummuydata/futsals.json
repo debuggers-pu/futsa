@@ -3,73 +3,80 @@
     "futsals": [
       {
         "name": "ABC Futsal Pvt. ltd",
-        "location": "Nadipur Pokhara",
+        "location": {
+          "lat": 12.467,
+          "lng": 12.345,
+          "address": "Nadipur, Pokhara"
+        },
         "rating": 5,
-        "images": ["fimage1.png", "fimage2.png"],
+        "images": ["futsal.jpg", "fimage2.png"],
         "price": "Rs 1200/hr"
       },
       {
         "name": "ABC Futsal Pvt. ltd",
-        "location": "Nadipur Pokhara",
+        "location": {
+          "lat": 12.359,
+          "lng": 12.398,
+          "address": "Nadipur, Pokhara"
+        },
         "rating": 3,
-        "images": ["fimage1.png", "fimage2.png"],
+        "images": ["futsal.jpg", "fimage2.png"],
         "price": "Rs 1500/hr"
       },
       {
         "name": "ABC Futsal Pvt. ltd",
-        "location": "Nadipur Pokhara",
+        "location": {
+          "lat": 12.499,
+          "lng": 12.228,
+          "address": "Nadipur, Pokhara"
+        },
         "rating": 3,
-        "images": ["fimage1.png", "fimage2.png"],
+        "images": ["futsal.jpg", "fimage2.png"],
         "price": "Rs 1600/hr"
       },
       {
         "name": "ABC Futsal Pvt. ltd",
-        "location": "Nadipur Pokhara",
+        "location": {
+          "lat": 12.52,
+          "lng": 12.3,
+          "address": "Nadipur, Pokhara"
+        },
         "rating": 2,
-        "images": ["fimage1.png", "fimage2.png"],
+        "images": ["futsal.jpg", "fimage2.png"],
         "price": "Rs 1200/hr"
       },
       {
         "name": "ABC Futsal Pvt. ltd",
-        "location": "Nadipur Pokhara",
+        "location": {
+          "lat": 12.6,
+          "lng": 12.403,
+          "address": "Nadipur, Pokhara"
+        },
         "rating": 4,
-        "images": ["fimage1.png", "fimage2.png"],
+        "images": ["futsal.jpg", "fimage2.png"],
         "price": "Rs 1500/hr"
       },
       {
         "name": "ABC Futsal Pvt. ltd",
-        "location": "Nadipur Pokhara",
+        "location": {
+          "lat": 12.312,
+          "lng": 12.245,
+          "address": "Nadipur, Pokhara"
+        },
         "rating": 5,
-        "images": ["fimage1.png", "fimage2.png"],
+        "images": ["futsal.jpg", "fimage2.png"],
         "price": "Rs 1600/hr"
       },
       {
         "name": "ABC Futsal Pvt. ltd",
-        "location": "Nadipur Pokhara",
+        "location": {
+          "lat": 12.567,
+          "lng": 12.576,
+          "address": "Nadipur, Pokhara"
+        },
         "rating": 1,
-        "images": ["fimage1.png", "fimage2.png"],
+        "images": ["futsal.jpg", "fimage2.png"],
         "price": "Rs 1500/hr"
-      },
-      {
-        "name": "ABC Futsal Pvt. ltd",
-        "location": "Nadipur Pokhara",
-        "rating": 3,
-        "images": ["fimage1.png", "fimage2.png"],
-        "price": "Rs 1600/hr"
-      },
-      {
-        "name": "ABC Futsal Pvt. ltd",
-        "location": "Nadipur Pokhara",
-        "rating": 2,
-        "images": ["fimage1.png", "fimage2.png"],
-        "price": "Rs 1500/hr"
-      },
-      {
-        "name": "ABC Futsal Pvt. ltd",
-        "location": "Nadipur Pokhara",
-        "rating": 5,
-        "images": ["fimage1.png", "fimage2.png"],
-        "price": "Rs 1600/hr"
       }
     ]
   }
