@@ -21,7 +21,7 @@ const OwnerRegister = () => {
   const signupHandler = async () => {
     try {
       const res = await signupFutsal(credentials);
-      if (res.status === 200) {
+      if (res) {
         dispatch(setAuthenticated(true));
         dispatch(setUser(res.data));
         navigate(`/owner/dashboard/${res.data.id}`);

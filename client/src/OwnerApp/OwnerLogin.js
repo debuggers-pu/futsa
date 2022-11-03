@@ -17,7 +17,7 @@ const OwnerLogin = () => {
     try {
       if (email !== "" && password !== "") {
         const res = await signin({ email, password });
-        if (res.status === 200) {
+        if (res) {
           if (res.data.user.role === "customer") {
             toast.error("User not found");
             return;

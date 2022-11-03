@@ -1,13 +1,7 @@
 import Homepage from "./pages/Homepage";
 import SearchPage from "./pages/SearchPage";
 import Auth from "./pages/Auth";
-import {
-  Routes,
-  Route,
-  useLocation,
-  useMatch,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/Navbar";
 import SubNavbar from "./components/SubNavbar";
@@ -15,7 +9,7 @@ import FutsalPage from "./pages/FutsalPage";
 import { Toaster } from "react-hot-toast";
 import OwnerApp from "./OwnerApp/OwnerApp";
 import { useEffect } from "react";
-import { getUserDetail, getFutsalDetail } from "./axios";
+import { getUserDetail } from "./axios";
 import { setUserDetails } from "./redux/slices/authSlice";
 import Userbookings from "./components/Userbookings";
 function App() {
