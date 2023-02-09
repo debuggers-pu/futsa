@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { setBookModal } from "../../../redux/slices/modalSlice";
 import {
   setBookingSelectedTime,
@@ -21,6 +21,7 @@ const TabContent = ({ selectedDate, futsalData, timeSlot }) => {
   const { id } = useParams();
   const userid = useSelector((state) => state.auth.user.details._id);
   const [times, setTimes] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     setTimes(timeSlot);
   }, [selectedDate]);

@@ -61,7 +61,7 @@ const Navbar = () => {
           {isAuthenticated ? (
             <img
               src={`${
-                user.details.image
+                user?.details.image
                   ? `http://localhost:8000/${user.details.image.split("\\")[1]}`
                   : ""
               }`}

@@ -2,12 +2,13 @@ import { returnDates } from "../../../utils/helperFunctions";
 import React, { useState, useEffect } from "react";
 import TabContent from "./TabContent";
 import { getBookingByDate } from "../../../axios";
-import moment from "moment";
-// import TimeSlots from "../../../dummuydata/timeslots.json";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const TabView = ({ futsalData }) => {
   const [isActive, setIsActive] = useState(0);
   const [selectedDate, setSelectedDate] = useState(returnDates()[0]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const initialState = [
     {
@@ -62,12 +63,16 @@ const TabView = ({ futsalData }) => {
   const [timeSlot, setTimeSlot] = useState(initialState);
 
   useEffect(() => {
+    let cancel = false;
     const getBookings = async () => {
       // api to query the booking on the given futsal and date.
       const res = await getBookingByDate({
         futsalId: futsalData._id,
         bookingDate: selectedDate,
       });
+      if (cancel) {
+        return;
+      }
       if (res.data.bookings) {
         setTimeSlot(initialState);
         let statusMap = {};
@@ -106,7 +111,9 @@ const TabView = ({ futsalData }) => {
       }
     };
     getBookings();
-  }, [selectedDate]);
+
+    return () => (cancel = true);
+  }, [location]);
 
   const activeTab = `after:absolute after:bg-white after:h-[4px] after:w-16 after:justify-center after:flex after:bottom-0 opacity-100`;
 
@@ -123,6 +130,9 @@ const TabView = ({ futsalData }) => {
               onClick={() => {
                 setIsActive(index);
                 setSelectedDate(date);
+                navigate({
+                  search: `?date=${date}`,
+                });
               }}
             >
               {date}

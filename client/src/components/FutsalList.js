@@ -15,7 +15,7 @@ const FutsalList = ({ data }) => {
   return (
     <Slider {...settings}>
       {data.map((item, id) => {
-        const image = item.image[0][0].split("\\")[1];
+        const image = item?.image[0][0].split("\\")[1];
         return (
           <div className="rounded-sm mr-6 p-3 shadow-sm" key={item._id}>
             <img
