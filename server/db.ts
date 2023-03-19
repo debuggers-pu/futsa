@@ -4,7 +4,7 @@ const connectDB = async () => {
   try {
     //database Name
     const databaseName = "futsa";
-    const con = await mongoose.connect(`mongodb://mongodb/${databaseName}`);
+    const con = await mongoose.connect(`mongodb://localhost/${databaseName}`);
     console.log(`Database connected : ${con.connection.host}`);
   } catch (error: any) {
     console.error(`Error: ${error.message}`);
