@@ -1,0 +1,17 @@
+{
+  "name": "futsa",
+  "version": "1.0.0",
+  "description": "Futsal booking system.",
+  "main": "index.js",
+  "repository": "git@github.com:debuggers-pu/futsa.git",
+  "author": "joerush18 <joras.aryal23@gmail.com>",
+  "license": "MIT",
+  "private": "true",
+  "workspaces": [
+    "app/*"
+  ],
+  "scripts": {
+    "start:server": "yarn --cwd app/server dev",
+    "start:client": "yarn --cwd app/client start"
+  }
+}
