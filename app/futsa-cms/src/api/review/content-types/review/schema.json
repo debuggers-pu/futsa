@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reviews",
+  "info": {
+    "singularName": "review",
+    "pluralName": "reviews",
+    "displayName": "Review",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "value": {
+      "type": "integer"
+    },
+    "message": {
+      "type": "text"
+    },
+    "player": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::player.player"
+    },
+    "futsal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::futsal.futsal"
+    }
+  }
+}

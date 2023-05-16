@@ -1,45 +1,34 @@
 import { Schema, model, Model } from "mongoose";
 import bcrypt from "bcrypt";
+import { IUser, USER_ROLE } from "../types";
 
-interface IUser {
-  email: string;
-  hash_password: string;
-  role: string;
-  authenticate: Function;
-}
-
-const UserSchema = new Schema<IUser>(
-  {
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      index: true,
-      lowercase: true,
-    },
-    hash_password: {
-      type: String,
-      required: true,
-    },
-    role: {
-      type: String,
-      enum: ["customer", "futsal"],
-      default: "customer",
-    },
+const userSchema: Schema<IUser> = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
   },
-  { timestamps: true }
-);
+  hash_password: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    enum: ['customer', 'futsal'],
+    default : USER_ROLE.CUSTOMER,
+    required: true,
+  },
+});
 
-UserSchema.virtual("password").set(function (password) {
+userSchema.virtual("password").set(function (password) {
   this.hash_password = bcrypt.hashSync(password, 10);
 });
 
-UserSchema.methods = {
+userSchema.methods = {
   authenticate: function (password: string) {
     return bcrypt.compareSync(password, this.hash_password);
   },
 };
 
-const User: Model<IUser> = model("User", UserSchema);
+const User: Model<IUser> = model("User", userSchema);
 export default User;

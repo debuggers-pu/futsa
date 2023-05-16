@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "players",
+  "info": {
+    "singularName": "player",
+    "pluralName": "players",
+    "displayName": "player",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "verified": {
+      "type": "boolean"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "profile": {
+      "type": "component",
+      "repeatable": false,
+      "component": "profile.profile"
+    },
+    "points": {
+      "type": "integer"
+    },
+    "geolocation": {
+      "type": "json"
+    }
+  }
+}

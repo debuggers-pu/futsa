@@ -1,46 +1,47 @@
 import { Schema, model, Model } from "mongoose";
+import { ICustomer } from "../types";
 
-interface ICustomer {
-  userId: Schema.Types.ObjectId;
-  firstName: string;
-  lastName: string;
-  phoneNumber: number;
-  image?: string;
-}
 
-const CustomerSchema = new Schema<ICustomer>(
-  {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-    firstName: {
+const customerSchema: Schema<ICustomer> = new Schema({
+  firstname: {
+    type: String,
+    required: true,
+  },
+  lastname: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+  },
+  phonenumber: {
+    type: Number,
+    required: true,
+  },
+  geolocation: {
+    latitude: {
       type: String,
-      required: true,
-      trim: true,
-      min: 4,
-      max: 20,
     },
-    lastName: {
-      type: String,
-      required: true,
-      trim: true,
-      min: 4,
-      max: 20,
-    },
-    phoneNumber: {
-      type: Number,
-    },
-
-    image: {
+    longitude: {
       type: String,
     },
   },
-  { timestamps: true }
-);
-
-CustomerSchema.virtual("fullName").get(function () {
-  return `${this.firstName} ${this.lastName}`;
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  image: {
+    type: String,
+  },
+  points: {
+    type: Number,
+    default: 0,
+  },
 });
-const Customer: Model<ICustomer> = model("Customer", CustomerSchema);
+
+customerSchema.virtual("fullName").get(function () {
+  return `${this.firstname} ${this.lastname}`;
+});
+const Customer: Model<ICustomer> = model("Customer", customerSchema);
 export default Customer;

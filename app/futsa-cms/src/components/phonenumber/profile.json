@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_phonenumber_profiles",
+  "info": {
+    "displayName": "profile"
+  },
+  "options": {},
+  "attributes": {
+    "fullname": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "phonenumber": {
+      "type": "biginteger",
+      "max": "10",
+      "min": "9",
+      "unique": true
+    }
+  }
+}

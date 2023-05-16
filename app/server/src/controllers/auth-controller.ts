@@ -4,7 +4,6 @@ import Futsal from "../models/futsal-model";
 import User from "../models/user-model";
 import UserServices from "../services/user-services";
 import TokenServices from "../services/token-services";
-import { userMiddleware } from "../middlewares/auth-middleware";
 
 class AuthController {
   login = async (req: Request, res: Response) => {
@@ -219,12 +218,12 @@ class AuthController {
             role: user.role,
           });
         } else {
-          res.status(400).json({
+          res.status(500).json({
             message: "Customer not added.",
           });
         }
       } else {
-        res.status(400).json({
+        res.status(500).json({
           message: "User not added.",
         });
       }
@@ -270,3 +269,79 @@ class AuthController {
 }
 
 export default new AuthController();
+
+
+// async refresh(req, res) {
+//   const { refreshToken: refreshTokenfromCookie } = req.cookies;
+
+//   //verify token
+//   let userData;
+//   try {
+//     userData = await TokenService.verifyToken(
+//       refreshTokenfromCookie,
+//       process.env.REFRESHTOKEN_KEY
+//     );
+//   } catch (error) {
+//     res.status(401).json({
+//       message: "Invalid Token",
+//     });
+//   }
+
+//   //check if refresh token is available in db
+//   try {
+//     const token = TokenService.findRefreshToken({
+//       refreshtoken: refreshTokenfromCookie,
+//       userId: userData._id,
+//     });
+//     if (!token) {
+//       res.status(401).json({
+//         message: "Token not found.",
+//       });
+//     }
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "Internal error",
+//     });
+//   }
+
+//   //check if user is valid
+//   const user = await UserService.getUser({ _id: userData._id });
+//   if (!user) {
+//     res.status(404).json({
+//       message: "User doesn't exist",
+//     });
+//   }
+
+//   //generate new access and refresh token
+//   const { accesstoken, refreshtoken } = await TokenService.getTokens({
+//     _id: userData._id,
+//   });
+
+//   //update db
+//   try {
+//     await TokenService.updateRefreshToken(
+//       { refreshtoken: refreshtoken },
+//       { userId: userData._id }
+//     );
+//   } catch (e) {
+//     res.status(500).json({
+//       message: "Internal error.",
+//     });
+//   }
+
+//   //update the cookies
+//   res.cookie("refreshToken", refreshtoken, {
+//     maxAge: 1000 * 60 * 60 * 24 * 30,
+//     httpOnly: true,
+//   });
+//   res.cookie("accessToken", accesstoken, {
+//     maxAge: 1000 * 60 * 60 * 24 * 30,
+//     httpOnly: true,
+//   });
+
+//   const userDto = new UserDto(user);
+//   res.status(200).json({
+//     user: userDto,
+//     auth: true,
+//   });
+// }

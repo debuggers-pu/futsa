@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bookings",
+  "info": {
+    "singularName": "booking",
+    "pluralName": "bookings",
+    "displayName": "booking",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "player": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::player.player"
+    },
+    "futsal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::futsal.futsal"
+    },
+    "payment": {
+      "type": "enumeration",
+      "enum": [
+        "esewa",
+        "khalti"
+      ]
+    },
+    "verifiedpayment": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "booked"
+      ]
+    },
+    "bookedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "bookedFor": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

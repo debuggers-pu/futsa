@@ -12,6 +12,9 @@
   ],
   "scripts": {
     "start:server": "yarn --cwd app/server dev",
-    "start:client": "yarn --cwd app/client start"
+    "start:web": "yarn --cwd app/web start",
+    "start:mob": "yarn --cwd app/mobile start",
+    "start:admin": "yarn --cwd app/admin start",
+    "start:cms": "yarn --cwd app/futsa-cms develop"
   }
 }

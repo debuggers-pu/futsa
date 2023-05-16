@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "newses",
+  "info": {
+    "singularName": "news",
+    "pluralName": "newses",
+    "displayName": "News",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "images": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "futsal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::futsal.futsal"
+    }
+  }
+}

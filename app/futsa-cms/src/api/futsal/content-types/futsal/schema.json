@@ -1,0 +1,74 @@
+{
+  "kind": "collectionType",
+  "collectionName": "futsals",
+  "info": {
+    "singularName": "futsal",
+    "pluralName": "futsals",
+    "displayName": "futsal",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "price": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "text"
+    },
+    "geolocation": {
+      "type": "json"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "verified": {
+      "type": "boolean"
+    },
+    "profile": {
+      "displayName": "profile",
+      "type": "component",
+      "repeatable": false,
+      "component": "profile.profile"
+    },
+    "news": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::news.news"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review"
+    },
+    "events": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "openingHour": {
+      "type": "time"
+    },
+    "closingHour": {
+      "type": "time"
+    }
+  }
+}

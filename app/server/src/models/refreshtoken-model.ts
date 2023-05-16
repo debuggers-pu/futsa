@@ -1,11 +1,8 @@
 import { model, Model, Schema } from "mongoose";
+import { IRToken } from "../types";
 
-interface IRToken {
-  userId: Schema.Types.ObjectId;
-  refreshToken: string;
-}
 
-const RefreshTokenSchema = new Schema({
+const RefreshTokenSchema = new Schema<IRToken>({
   userId: {
     type: Schema.Types.ObjectId,
     ref: "User",

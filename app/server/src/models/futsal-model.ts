@@ -1,56 +1,63 @@
-import { Schema, model, Model } from "mongoose";
+import mongoose from "mongoose";
+import { IFutsal } from "../types";
 
-interface Ifutsal {
-  userId: Schema.Types.ObjectId;
-  futsalName: string;
-  slug: string;
-  ownerName: string;
-  address: string;
-  phoneNumber: string;
-  image: string[];
-  description: string;
-}
-
-const FutsalSchema = new Schema<Ifutsal>(
-  {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-    futsalName: {
-      type: String,
-      required: true,
-      trim: true,
-      min: 4,
-      max: 30,
-    },
-    slug: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    ownerName: {
-      type: String,
-      required: true,
-      trim: true,
-      min: 4,
-      max: 20,
-    },
-    phoneNumber: {
+const futsalSchema = new mongoose.Schema<IFutsal>({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  phonenumber: {
+    type: Number,
+    required: true,
+  },
+  geolocation: {
+    latitude: {
       type: String,
     },
-    address: {
+    longitude: {
       type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-    },
-    image: {
-      type: [],
     },
   },
-  { timestamps: true }
-);
-const Futsal: Model<Ifutsal> = model("Futsal", FutsalSchema);
-export default Futsal;
+  image: {
+    type: String,
+  },
+  openingHour: {
+    type: String,
+    required: true,
+  },
+  closingHour: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review',
+    },
+  ],
+  events: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Event',
+    },
+  ],
+});
+
+const FutsalModel = mongoose.model<IFutsal>('Futsal', futsalSchema);
+export default FutsalModel;
